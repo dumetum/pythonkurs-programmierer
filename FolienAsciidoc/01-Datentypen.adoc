@@ -20,7 +20,7 @@ include::../Build/attributes-de.adoc[]
 * Voraussetzungen:
 ** Erfahrungen in einer höheren Programmiersprache
 ** Die folgenden Konzepte werden als bekannt vorausgesetzt
-*** Bezeichner / Variablen
+*** Bezeichner / Variablen / Zuweisungen
 *** Datentypen: Zahlen, Zeichenketten (Strings), Kollektionen
 *** Kontrollstrukturen: Verzweigungen, Schleifen
 *** Prozeduren, Funktionen, Module
@@ -106,6 +106,149 @@ python -V bzw. python3 -V
 Hallo
 ----
 
+== icon:question-circle[] Übung - Erstes Programm und interaktive Shell
+
+* Erstellen Sie ein Programm, das `Hallo Welt` ausgibt.
+* Geben Sie `Hallo Welt` in der interaktiven Shell aus.
+
+
+== Einführendes Beispiel
+
+* icon:exclamation-circle[] `zahlenraten.py`
+
+
+== Kommentare
+
+* `# Kommentar bis zum Zeilenende`
+* Blockkommentar:
++
+[source,python]
+----
+‘‘‘Drei einfache Anführungszeichen
+für Kommentare über mehrere Zeilen.
+Streng genommen ist das kein Kommentar,
+sondern ein String über mehrere Zeilen,
+der aber als Kommentar verwendet werden kann.
+‘‘‘
+----
+
+
+== Anweisungen
+
+* normal einzeilig
+* ohne Abschluss mit Strichpunkt o.ä.
+* Mehrere Anweisungen in einer Zeile durch Strichpunkt getrennt möglich (aber unüblich):
++
+[source,python]
+----
+a=1; b=2
+----
+* Mehrzeilig:
+** erlaubt, wenn Anfang und Ende eindeutig (z.B. bei Parameteraufzählung bei Prozeduren)
+** Explizit durch `\`:
++
+[source,python]
+----
+	a=\
+	4711
+----
+
+
+== Blöcke und Hilfe
+
+* Anweisungsblöcke werden durch einheitliches Einrücken gebildet. 
++
+NOTE: Keine Vermischung von Leer- und Tabulatorzeichen. Empfehlung: Nur Leerzeichen verwenden!
+
+* Hilfe: In der Shell:
+** `help()`
+** `help(str)`
+
+
+== Variablen
+
+* Variablen müssen nicht deklariert werden.
+* Eine Variable wird angelegt, wenn ihr zum ersten mal ein Wert zugewiesen wird.
+* Sind ungetypt, d.h. eine Variable kann Objekte verschiedenen Typs zugewiesen bekommen.
+* Die Objekte selbst haben einen festen Typ.
+* Zuweisungsoperator: =
+* Beispiel:
++
+[source,python]
+----
+a = 3
+a = "Eine Zeichenkette (String)"
+----
+
+
+== Variablen 2
+
+* Gültige Variablennamen („Bezeichner“) bestehen aus:
+** Buchstaben (groß und klein)
+** Unterstrich `_`
+** Ziffern (`0 - 9`) (aber nicht am Anfang)
+** Unicode-Zeichen (Standardkodierung ab Python 3 ist UTF-8)
+* beliebige Länge
+* Groß- und Kleinschreibung wird unterschieden
+* Python-Schlüsselwörter dürfen nicht verwendet werden.
+* Konvention:
+** Kleinschreibung
+** `meine_variable`, `alter_in_jahren`
+
+
+== Laufzeitmodell
+
+* Es gibt nur Referenzdatentypen („alles ist ein Objekt“).
+* Bei der Zuordnung eines Wertes zu einer Variablen wird für die Variable eine Referenz auf das entsprechende Objekt angelegt.
+* Jedes Objekt hat icon:info-circle[]
+** eine Identität (abzufragen über `id()`),
+** einen Typ (`int`, `float`, `str`, …)
+** einen Wert.
+
+
+== Gleichheit vs. Identität
+
+* Bei Test auf Gleichheit (`a == b`) wird
+** eine entsprechende Methode der Klasse aufgerufen (vgl. `equals` bei Java), falls eine solche Methode implementiert wurde;
+** andernfalls werden die Identitäten verglichen: `id(a) == id(b)`  (analog zu `==` bei Java).
+* Bei den Standardtypen ist `==` implementiert.
+* Mit `is` wird auf Identität abgefragt, d.h.
+	`a is b`
+  entspricht
+	`id(a) == id(b)`
+
+
+== Beispiel
+
+[source,python]
+----
+a=1234
+b=a
+----
+Danach zeigen `a` und `b` auf dasselbe Objekt `1234` vom Typ `int`. Es gilt also:
+
+* `a is b` 
+* und somit natürlich auch `a==b`
+
+[source,python]
+----
+b=1234
+----
+
+Jetzt gilt:
+
+* `a is not b` (`a` und `b` zeigen auf unterschiedliche Objekte)
+* `a == b`: Der Gleichheitsoperator für die Klasse `int` ist entsprechend implementiert.
+
+
+== `type` und `isinstance`
+
+* Der Typ eines Objektes läßt sich mit `type()` bestimmen.
+* Eine Abfrage auf den Typ ist mit `instanceof` möglich:
+** `isinstance(a, int)`
+** `isinstance(a, (int,float))`
+* `isinstance()` berücksichtigt dabei auch die Ableitungshierarchie, d.h. wenn `c2` von `c1` abgeleitet ist, und `a` ein Objekt vom Typ `c2` referenziert, dann gilt:
+  `isinstance(a,c1) == True`
 
 == Referenzen
 
