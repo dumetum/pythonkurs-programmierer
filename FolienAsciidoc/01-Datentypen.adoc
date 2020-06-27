@@ -338,6 +338,153 @@ verbrauch_HJ1 = [20.1, 34.5, None, 22.4, 23.5, 31.3]
 ** Bei `a = None` verweist `a` auf das `None`-Objekt (vom Typ `NoneType`).
 
 
+== Wahrheitswerte (bool)
+
+* Zwei Werte: `True`, `False`
+* Operatoren:
+** `and`
+** `or`
+** `not`
+* Bsp:
++
+[source,python]
+----
+b1 = True
+b2 = False
+b3 = b1 or b2
+print(b3)
+----	
+
+
+== Wahrheitswerte II
+
+* „Kurzschlussauswertung“ boolescher Ausdrücke:
+** Auswertung von links nach rechts
+** Auswertung wird beendet, wenn das Ergebnis feststeht
+** Anwendungsbeispiele: 
+*** Auswertung des weiteren Ausdrucks nicht möglich
++
+[source,python]
+----
+x != None and x > 100
+----
+*** Auswertung des weiteren Ausdrucks aufwändig:
++
+[source,python]
+----
+x == 5 and aufwaendige_funktion(x)
+----
+* Mehrfachvergleiche: `5 \<= x \<= 10`
+
+
+== Einschub: Binäre Operatoren
+
+* Neben den logischen Operatoren `and`, `or`, `not` gibt es auch binäre Operatoren.
+* Diese arbeiten auf der Binärdarstellung *ganzer Zahlen*.
+* Binäre Operatoren: 
+** Und: `&` 
+** Oder: `|` 
+** Nicht: `~`
+** Schieben nach links: `<<`
+** Schieben nach rechts: `>>` 
+* Bsp: `9 & 3` ergibt `1`
+
+
+== Zeichenketten
+
+* Bsp: `s = "Hallo Python"` oder s = `'Hallo Python'`
+* Sequenz (Folge) von einzelnen Zeichen („Character“)
+* Zeichen: Beliebiges Unicode-Zeichen
+* Standardmäßige Kodierung UTF-8
+* Verwendung von Unicode-Escape-Sequenzen, z.B. `s = "Saarbr\u00fccken"`
+* Die üblichen Esc-Seqenzen gibt es auch, z.B. `\n`
+* Keine Ersetzung von Sonderzeichen: `s = r"Hallo\n"`
+* Strings über mehrere Zeilen:
+** Trennung über `\` (keine neue Zeile)
+** Dreifache Anführungszeichen (neue Zeile)
+
+
+== Zeichenketten: Länge und Indizierung
+
+* Die Länge des Strings ist die Anzahl der Zeichen.
+* Zugriff auf ein Zeichen über dessen Index.
+
+NOTE: Die Indizierung beginnt (wie in der Informatik üblich) mit `0`
+
+* Beispiel: `s = "Python"`
+** `len(s)`
+** `s[1]`
+** `s[-1]`
+
+* Der Datentyp `string` ist *unveränderlich*, d.h. Änderungen der Art `s[0]='J'` sind nicht möglich.
+
+
+== Zeichenketten: Operatoren und Funktionen
+
+* Vergleich: `==`, `<`, `\<=`, `>`, `>=`
+* `+`: Konkatenation
+* `*`: Wiederholung
+* `len`: Länge
+* Indizierung (`[]`-Operator)
+* Ausschneiden („Slicing“): 
+** `"Python"[2:4]`
+** `"Python"[:4]`
+** `"Python"[2:]`
+** `"Python"[:]`
+
+NOTE: Der letzte Index ist exklusive (im Bsp. ist das 4. Zeichen - bei Zählung von 0 an - nicht inkludiert).
+
+
+== Datentyp bytes
+
+* Analog Strings, aber Sequenz von *Bytes*.
+* Kann für Binärdaten verwendet werden.
+* Beispiel: `b=b"Hallo"`
+
+
+== Sequentielle Datentypen
+
+* „Eingebaute“ Datentypen
+* Kollektion („Collection“)
+* Sequentielle Folge von Elementen
+* Typen:
+** Zeichenketten
+** Listen
+** Tupel
+* Länge, Indizierung und Slicing funktioniert auf allen sequentiellen Datentypen analog zu Strings.
+* Beim Slicing wird eine Kopie zurückgegeben.
+
+
+== Listen
+
+*HIER WEITER*
+
+* Bei dem Datentyp `list` handelt es sich um einen *veränderlichen* Datentypen.
+
+NOTE: Da es sich um einen veränderlichen Datentyp handelt, sind Seiteneffekte möglich. icon:info-circle[] 
+
+* Beim Slicing wird eine Kopie des Listenausschnitts zurückgegeben
+** somit sind hier keine Seiteneffekte zu befürchten
+** `l[:]` liefert also eine Kopie der Liste
+
+
+== Tupel
+
+* analog Listen, aber *unveränderlich*.
+* Erzeugung über `()`  statt `[]`, z.B.:
++
+[source,python]
+----
+adr = ("Max", "Mustermann", "Irgendwoweg", "Lummerland")
+----
+* Leeres Tupel: `t = ()`
+* Tupel mit einem Element: `t = (1,)`
+* Packing: `t = 1, 2`
+* Unpacking: `x, y = t`
+* Haben keine Kopier-Methode (warum auch, sind ja unveränderlich)
+* Anwendungsbeispiel: Ähnlich Rekords bei anderen Programmiersprachen.
+
+
 == Referenzen
 
 [bibliography]
