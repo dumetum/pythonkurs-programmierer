@@ -442,35 +442,68 @@ NOTE: Der letzte Index ist exklusive (im Bsp. ist das 4. Zeichen - bei Zählung 
 * Beispiel: `b=b"Hallo"`
 
 
-== Sequentielle Datentypen
-
-* „Eingebaute“ Datentypen
-* Kollektion („Collection“)
-* Sequentielle Folge von Elementen
-* Typen:
-** Zeichenketten
-** Listen
-** Tupel
-* Länge, Indizierung und Slicing funktioniert auf allen sequentiellen Datentypen analog zu Strings.
-* Beim Slicing wird eine Kopie zurückgegeben.
-
 
 == Listen
 
-*HIER WEITER*
+* Sequenz von Objekten beliebigen Typs. 
+* Erzeugung einer „leeren“ Liste: `l = []`
+* Da beliebige Objekte erlaubt sind, sind also auch „verschachtelte“ Listen möglich.
+* Beispiele:
++
+[source,python]
+----
+l1 = [1, 2.2, "Text"]
+l2 = [7, [3,4], 7]
+----
+* Länge und Indizierung wie bei Strings.
+* Mehrfachindizierung: `l2[1][0]`
+
+
+== Listen 2
 
 * Bei dem Datentyp `list` handelt es sich um einen *veränderlichen* Datentypen.
++
+[source,python]
+----
+l1 = [1,2,3]
+l2 = l1
+l1[0] = 66
+----
 
 NOTE: Da es sich um einen veränderlichen Datentyp handelt, sind Seiteneffekte möglich. icon:info-circle[] 
 
+* Slicing funktioniert wie bei Zeichenketten (`l1[1:2]`).
 * Beim Slicing wird eine Kopie des Listenausschnitts zurückgegeben
 ** somit sind hier keine Seiteneffekte zu befürchten
 ** `l[:]` liefert also eine Kopie der Liste
 
 
+== Operationen auf Listen
+
+* Test, ob `element` in `liste` enthalten: `element in liste`
+* Element zu Liste hinzufügen: `l.append(7)`
+* An einer bestimmten Stelle: `l.insert(index, element)`
+* Element löschen: `x.remove(7)`
+* „Flache“ Kopie: `l.copy()`
+* `pop(i)`: Gibt das `i`-te Element zurück und entfernt es
+* `pop()`: Gibt das letzte Element zurück und entfernt es
+* Siehe auch:
+** https://docs.python.org/3.6/library/stdtypes.html#lists
+** https://www.python-kurs.eu/python3_sequentielle_datentypen.php
+
+
+== Listen zusammenfügen
+
+* `l1.extend(l2)`: Die Liste `l1` wird um alle Elemente der Liste `l2` erweitert.
+* `l3 = l1 + l2`: Es wird eine neue Liste mit den Elementen von `l1` und `l2` erzeugt. Diese wird der Variablen `l3` zugewiesen.
+* `l1 += l2`: Funktioniert also, ist aber gegenüber `extend` ineffizient, da erst eine neue Liste mit allen Elementen erzeugt wird, die dann der Variablen `l1` zugewiesen wird.
+
+ 
+
+
 == Tupel
 
-* analog Listen, aber *unveränderlich*.
+* analog Listen; ein Tupel ist aber *unveränderlich*.
 * Erzeugung über `()`  statt `[]`, z.B.:
 +
 [source,python]
