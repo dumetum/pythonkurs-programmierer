@@ -498,8 +498,6 @@ NOTE: Da es sich um einen veränderlichen Datentyp handelt, sind Seiteneffekte m
 * `l3 = l1 + l2`: Es wird eine neue Liste mit den Elementen von `l1` und `l2` erzeugt. Diese wird der Variablen `l3` zugewiesen.
 * `l1 += l2`: Funktioniert also, ist aber gegenüber `extend` ineffizient, da erst eine neue Liste mit allen Elementen erzeugt wird, die dann der Variablen `l1` zugewiesen wird.
 
- 
-
 
 == Tupel
 
@@ -517,6 +515,84 @@ adr = ("Max", "Mustermann", "Irgendwoweg", "Lummerland")
 * Haben keine Kopier-Methode (warum auch, sind ja unveränderlich)
 * Anwendungsbeispiel: Ähnlich Rekords bei anderen Programmiersprachen.
 
+
+== Dictionaries
+
+* Schlüssel-Wert-Paare (Maps)
+* Bsp:
++
+[source,python]
+----
+leer = {}
+en_de = {"red": "rot", "green": "grün"}
+verbr = {"Januar":32.1,"Februar":21.3,"März":48.7} 
+----
+* Zugriff, Änderung eines Wertes, Einfügen eines Wertes
++
+[source,python]
+----
+verbr["Januar"]
+verbr["Januar"] = 34.7
+verbr["April"] = 17
+----
+* Ein Dictionary ist also *veränderlich*.
+* Die Schlüssel-Wert-Paare haben keine Ordnung.
+* Prüfung, ob Element vorhanden ist:  `"April" in verbr`
+
+
+== Dictionaries: Werte
+
+* Erlaubte Werte („Einträge“): Beliebige Datentypen
+* Auch ein Dictionary kann also Wert eines Eintrages sein („verschachtelte Dictionaries“)
+
+
+== Dictionaries: Schlüssel
+
+* Damit ein Objekt als Schlüssel eines Dictionaries verwendet werden kann, muss die zugehörige Klasse „hashable“ sein, d.h. eine Hash-Methode implementieren.
+* Eingebaute Datentypen:
+** Alle unveränderlichen Typen (Zahlen, Tupel, Strings) können verwendet werden.
+** Die veränderlichen Typen (list, dict) können nicht verwendet werden.
+* Eigene Klassen (s. Kapitel OO):
+** Haben standardmäßig eine Hash-Funktion.
+** Können also verwendet werden.
+** Die Hash- und Equal-Methode sollten sinnvoll überschrieben werden (vgl. Java).
+
+
+== Operationen auf Dictionaries
+
+* `d.clear()`
+* `d.copy()`: Gibt „flache“ Kopie zurück
+* `d.items()`
+* `d.keys()`
+* Siehe auch:
+** https://docs.python.org/3.6/library/stdtypes.html#mapping-types-dict
+** https://www.python-kurs.eu/python3_dictionaries.php
+
+
+== Mengen
+
+* Eine Menge ist eine ungeordnete Sammlung von einmaligen und unveränderlichen Elementen
+* Für die erlaubten Elementtypen gilt dasselbe wie für Schlüssel bei Dictionaries („Hashable“).
+* Erzeugung einer Menge:
+** `s = set()`
+** `s = set('Hamburg', 'München', 'Düsseldorf')`
+** `s = {'Hamburg', 'München', 'Düsseldorf'}`
+** `s = {}` hingegen erzeugt ein leeres Dictionary
+* Elemente hinzufügen: `s.add("Saarbrücken")`
+
+
+== Mengen II
+
+* Element löschen: `s.remove('Hamburg')`
+* Mengen sind also *veränderlich*
+* `frozenset(s)` liefert unveränderliche Menge, die dann auch ihrerseits Element einer Menge sein kann.
+* Weitere Operationen:
+** `s.clear()`
+** `s.copy()`: gibt „flache“ Kopie zurück
+** `s1.difference(s2)`
+* s. auch: 
+** https://www.python-kurs.eu/python3_sets_mengen.php
+** https://docs.python.org/3.6/library/stdtypes.html#set-types-set-frozenset
 
 == Referenzen
 

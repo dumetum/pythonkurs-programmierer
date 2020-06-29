@@ -1,0 +1,30 @@
+= Programmierung mit Python für Programmierer:: Kapitel 2 - Kontrollstrukturen
+Dr. Christian Heckler
+:icons: font
+:sectids!:
+:imagesdir: ../bilder
+:title-separator: ::
+include::../Build/attributes-de.adoc[]
+
+== Vorbemerkungen
+
+* Verwendete Literatur: siehe Referenzen
+* Verwendete Symbole:
+** icon:exclamation-circle[]: Beispielprogramm
+** icon:info-circle[]: Weitere Erläuterungen im Kurs
+** icon:question-circle[]: Übung
+
+
+
+
+
+== Referenzen
+
+[bibliography]
+* [[[Ste]]] Ralph Steyer: Programmierung Grundlagen, Herdt-Verlag
+* [[[Kle]]] Bernd Klein: Einführung in Python 3, Hanser-Verlag
+* [[[Kof]]] Kofler: Python – Der Grundkurs, Rheinwerk Computing
+* [[[EK]]] Johannes Ernesti, Peter Kaiser: Python 3 – Das umfassende Handbuch, Rheinwerk Computing
+* [[[Mat]]] Eric Matthes: Python Crashkurs – Eine praktische, projektbasierte Programmiereinführung, dpunkt.verlag
+* [[[Swe]]] Sweigart: Eigene Spiele programmieren: Python lernen
+
