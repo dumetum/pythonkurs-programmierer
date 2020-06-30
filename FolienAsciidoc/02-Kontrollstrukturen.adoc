@@ -15,7 +15,213 @@ include::../Build/attributes-de.adoc[]
 ** icon:question-circle[]: Übung
 
 
+== Ein- und Ausgabe
 
+* Eingabe:
+** Input-Funktion: `eingabe = input("Ihre Eingabe")`
+** Die Input-Funktion liefert immer eine Zeichenkette zurück.
+** Möchte man also eine Zahl eingeben, muss die Zeichenkette konvertiert werden:
++
+[source,python]
+----
+zahl = float(input("Eingabe Zahl: " ))
+----
+* Ausgabe:
+** Print-Funktion
+** Ausgabe mehrere Objekte durch Komma getrennt
+** Automatische Umwandlung in Zeichenkette
+** Bsp.: `print("Das Ergebnis ist:", 42)`
+
+
+== Anweisungsblöcke
+
+* Anweisungen werden in „Anweisungsblöcke“ strukturiert.
+* Dies geschieht in Python durch Einrückung.
+* Anweisung mit dergleichen Einrücktiefe gehören dabei zusammen und bilden einen Block 
+* Die Einrückungen müssen einheitlich mit Leerzeichen oder Tabulatoren erfolgen.
+* Empfehlung:
+** Leerzeichen (Tabulatortaste mit Leerzeichen „belegen“)
+** Pro Stufe 4 Leerzeichen
+
+
+== Bedingte Anweisungen
+
+Drei Formen:
+
+* Einfache `if`-Anweisung: 
+** Wenn eine Bedingung erfüllt ist, werden die folgenden Anweisungen (Anweisungsblock) ausgeführt.
+** Andernfalls nicht, und die Programmausführung geht hinter der `if`-Anweisung weiter
+* `if … else`: 
+** Je nach Bedingung wir der eine oder der andere Anweisungsblock ausgeführt
+* `elif`: 
+** Vereinfachte Schreibweise bei verschachtelten Bedingungen
+
+
+== Einfache if-Anweisungen
+
+* Allgemeine Form
++
+[source,python]
+----
+if bedingung:
+    anweisungen
+anweisungen
+----
+
+* Beispiel <<Kle>>:
++
+[source,python]
+----
+alter = int(input("Dein Alter"))
+if alter < 12:
+    print("Zu jung")
+    print("Waehle einen anderen Film")
+print("Programmende") 
+----
+
+== If-Anweisung mit Else-Teil
+
+* Allgemeine Form
++
+[source,python]
+----
+if bedingung:
+    anweisungen
+else:
+    anweisungen
+anweisungen
+----
+
+* Beispiel <<Kle>>:
++
+[source,python]
+----
+alter = int(input("Dein Alter"))
+if alter < 12:
+    print("Zu jung")
+    print("Waehle einen anderen Film")
+else:
+    print("Viel Spass")
+print("Programmende") 
+----
+	
+== „Verschachtelte“ Blöcke	
+	
+* In einem Anwendungsblock, der in einer If-Anweisung vorkommt, kann auch eine weitere If-Anweisung vorkommen.
+* Das nennt man dann verschachtelte If-Anweisung.	
+* Bsp <<Kle>>:
+	
+[source,python]
+----
+alter = int(input("Dein Alter"))
+if alter < 4:
+    print("Der Film ist zu kompliziert")
+else:
+    if alter < 12:
+        print("Viel Spass")
+    else:
+        if alter < 16:
+            print("Bist Du Dir sicher?")
+        else:
+            print("Wollen Sie sich das antun?")
+print("Programmende") 
+----
+
+== Elif
+
+* Das ist im Zweifelsfall schwer zu lesen. Daher gibt es mit „elif“ eine Abkürzung <<Kle>>
+
+[source,python]
+----
+alter = int(input("Dein Alter"))
+if alter < 4:
+    print("Der Film ist zu kompliziert")
+elif alter < 12:
+    print("Viel Spass")
+elif alter < 16:
+    print("Bist Du Dir sicher?")
+else:
+    print("Wollen Sie sich das antun?")
+print("Programmende") 
+----
+
+
+== Kurzschreibweisen
+
+* Den „ternärem Operator“ (`x = bedingung ? wert1 : wert2`) gibt es nicht. Stattdessen:
++
+[source,python]
+----
+x = wert1 if bedingung else wert2
+----
+* Einzeilige Bedingungen:
++
+[source,python]
+----
+if bedingung: anweisung
+----
+* Kein Switch. Statt dessen:
+** `elif` (insbesondere einzeilig, s. oben)
+** evtl. Verwendung von Dictionaries
+
+
+== Bedingungen
+
+* Was genau steht hinter dem „if“?
+* Ein „Ausdruck“, dessen Wert „wahr“ oder „falsch“ ist.
+* Vergleichsoperatoren icon:info-circle[]:
++
+|===
+|Operator | Bedeutung | Beispiel
+
+|`==` |gleich         |`42 == 42`
+|`!=` |ungleich       |`42 != 43`
+|`<`  |kleiner        |`42 < 43`
+|`\<=`|kleiner gleich |`42 \<= 42`
+|`>`  |größer         |`43 > 42`
+|`>=` |größer gleich  |`42 >= 42`
+|===
+	
+	
+== Bedingungen II
+
+* Der Ausdruck hinter `if` wird automatisch nach bool konvertiert, z.B.
++
+[source,python]
+----
+liste = []
+if liste: <1>
+----
+<1> Statt: `if len(liste) == 0:`
+* Zu `False` ausgewertet wird:
+** numerische Null-Werte
+** leere Zeichenketten
+** leere Listen, leere Tupel, leere Dictionaries
+** Der `None`-Wert
+
+
+== Logische Operatoren
+
+* Wahrheitswerte lassen sich mit logischen Operatoren verknüpfen
+* Diese sind: `and, or, not`
+* Beispiel: Prüfung, ob eine Zahl a zwischen 20 und 100 liegt: 
++
+----
+if 20 <= a and a <= 100:
+----
+* Prüfung des Gegenteils: icon:info-circle[]
+** a liegt nicht zwischen 20 und 100:
++
+----
+if not (20 <= a and a <= 100):
+----
+** a ist kleiner als 20 oder größer als 100
++
+----
+if a < 20 or a > 100:
+----
+
+* Wahrheitstabellen icon:info-circle[]
 
 
 == Referenzen
