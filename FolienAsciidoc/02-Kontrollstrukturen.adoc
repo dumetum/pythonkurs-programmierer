@@ -200,29 +200,127 @@ if liste: <1>
 ** Der `None`-Wert
 
 
-== Logische Operatoren
+== Schleifen
 
-* Wahrheitswerte lassen sich mit logischen Operatoren verknüpfen
-* Diese sind: `and, or, not`
-* Beispiel: Prüfung, ob eine Zahl a zwischen 20 und 100 liegt: 
+* In Python gibt es zwei Typen von Schleifen:
+** `while`-Schleife
+** `for`-Schleife
+
+== Die While-Schleife
+
+* Allgemeine Form:
 +
 ----
-if 20 <= a and a <= 100:
+while Bedingung:
+    code_block
+weitere Anweisungen
 ----
-* Prüfung des Gegenteils: icon:info-circle[]
-** a liegt nicht zwischen 20 und 100:
+* Solange die Bedingung (_Schleifenkopf_, _Header_) erfüllt ist, wir der Code-Block (_Schleifenrumpf_) ausgeführt.
+* Danach wird mit den „weiteren Anweisungen“ fortgefahren
+* Ist die Bedingung „von Anfang an“ nicht erfüllt, wird der Schleifenrumpf überhaupt nicht durchlaufen.
+* Natürlich kann der Code-Block wieder Schleifen enthalten (man spricht dann von _verschachtelten Schleifen_.)
+
+
+
+== Break und Continue
+
+* `break`: 
+** Die Ausführung des Schleifenrumpfes wird abgebrochen. 
+** Es wird mit der ersten Anweisung hinter der Schleife fortgefahren.
+** Beispiel: `while.py` icon:exclamation-circle[]
+* `continue`: 
+** Die Ausführung des Schleifenrumpfes wird abgebrochen. 
+** Es wird mit dem Schleifenkopf (Bedingung) fortgefahren.
+** Beispiel: continue.py icon:exclamation-circle[]
+* Beide Anweisungen wirken auf die aktuelle Schleife. Nicht auf evtl. vorhandene äußere Schleifen.
+
+
+== Else-Teil einer While-Schleife
+
+* Python-Spezialität.
+* Der `else`-Teil wird ausgeführt, wenn und sobald die Schleifenbedingung nicht mehr zu trifft.
+* Beim Verlassen der Schleife via `break` wird der `else`-Teil nicht ausgeführt.
+* Beispiel: Zahlenraten icon:exclamation-circle[]
+* Übung: Wie würde man das implementieren, wenn es kein Else der While-Schleife gäbe? icon:question-circle[]
+
+
+== Die For-Schleife
+
+* Allgemeine Form:
 +
 ----
-if not (20 <= a and a <= 100):
+for variable in kollektion:
+    code_block
+weitere Anweisungen
 ----
-** a ist kleiner als 20 oder größer als 100
+* `variable`: Eine beliebige (auch neue) Variable.
+* `kollektion`: Ein Ausdruck, der ein iterierbares Objekt bezeichnet (s. später)
+* Der `code_block` wird so oft durchlaufen, wie es Elemente in der Kollektion gibt.
+* In jedem Schleifendurchlauf nimmt die `variable` einen Wert der Kollektion an.
+* Wenn alle Element durchlaufen wurden, wird das Programm mit den `weitere Anweisungen` fortgesetzt.
+
+
+== For-Schleife: Beispiel
+
+[source,python]
+----
+for buchstabe in "Python":
+    print("Aktueller Buchstabe: ", buchstabe)
+----
+
+* Als Schleifenvariable (hier `buchstabe`) kann eine beliebige Variable verwendet werden (neu oder vorher schon verwendet).
+* Im Beispiel wird der Schleifenrumpf 6 mal durchlaufen.
+* Im ersten Schleifendurchlauf enthält die Variable `buchstabe` den Wert `"P"`.
+* Im zweiten Schleifendurchlauf enthält die Variable `buchstabe` den Wert `"y"`.
+* usw. 
+
+
+== For-Schleife: Sonstiges
+
+* Iteration über beliebige „iterierbare Objekte“
+** Listen, Tupel
+** Strings
+** Dictionaries
+** auch eigene Klassen, wenn sie die entspr. Methoden impl.
+
+* Auch bei for-Schleifen:
+** break
+** continue
+** else-Teil
+
+* Weiteres Beispiel: `for.py` icon:exclamation-circle[]
+
+
+== „Klassische“ For-Schleifen
+
+* In anderen Programmiersprachen gibt es häufig For-Schleifen, die einen Bereich von ganzen Zahlen durchlaufen, z.B. Java, C(++):
 +
 ----
-if a < 20 or a > 100:
+for (int i=1; i<13; i++) {}
 ----
+* Diese werden häufig benötigt, um die Indizes einer Zeichenkette oder einer Liste zu durchlaufen.
+* Da man in Python mit der For-Schleife direkt über solche Objekte schleifen kann, wird die klassische Form selten benötigt.
 
-* Wahrheitstabellen icon:info-circle[]
 
+== Range-Funktion
+
+* Wenn doch, gibt es in Python die `range`-Funktion:
+** liefert einen Bereich ganzer Zahlen, über den man iterieren kann.
+** Bsp.:
++
+[source,python]
+----
+for i in range(1,13):
+    print("Monat: ", i)
+----
+** Es wird nicht a priori eine Liste der Zahlen erstellt.
+
+
+== Schleife über Listen
+
+* Ändert man eine Liste während man über die Liste schleift, sollte man über eine Kopie der Liste schleifen.
+* Andernfalls könnte es zu Verwerfungen kommen.
+* Bsp.: schleife_liste_kopie.py icon:exclamation-circle[]
 
 == Referenzen
 
