@@ -322,6 +322,14 @@ for i in range(1,13):
 * Andernfalls könnte es zu Verwerfungen kommen.
 * Bsp.: schleife_liste_kopie.py icon:exclamation-circle[]
 
+
+== icon:question-circle[] Übungen Schleifen
+
+* Fröhliche Zahlen
+* Römische Zahlen
+* Kreuz
+* Bestimmung der maximalen Wortlänge in einer Zeichenkette, die einen Satz darstellt.
+
 == Referenzen
 
 [bibliography]
