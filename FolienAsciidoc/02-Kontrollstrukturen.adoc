@@ -323,11 +323,134 @@ for i in range(1,13):
 * Bsp.: schleife_liste_kopie.py icon:exclamation-circle[]
 
 
+== Dateien
+
+* Die im Programm verarbeiteten Daten sind nach der Programmausführung weg.
+* Möglichkeit der dauerhaften („persistenten“) Speicherung: Dateien
+* Datei: Menge von logisch zusammenhängenden und meist sequentiell geordneten Daten, 
+  die auf einem Speichermedium dauerhaft gespeichert werden und mittels eines Bezeichners bzw. Namens wieder 
+  identifizierbar und damit ansprechbar sind.
+* Eindimensionale Aneinanderreihung von Bits.
+
+
+== Lesen aus einer Datei
+
+* Lesen aus einer Datei:
++
+[source,python]
+----
+    fobj = open("dateiname", "r")
+    for line in fobj:
+        print(line)
+    fobj.close()
+----
+
+* Beispiel: icon:exclamation-circle[] `datei1.py` 
+* Datei wird zeilenweise gelesen als Zeichenkette (String).
+* Jede Zeile enthält am Ende den Zeilenumbruch
+* Den muss man evtl. entfernen (`line.strip()`)
+* Beispiel: icon:exclamation-circle[] `datei2.py` 
+* Die Datei muss am Ende „geschlossen“ werden.
+	
+
+== Lesen aus einer Datei 2
+
+* Möglicherweise muss man zu Weiterverarbeitung eine Typkonvertierung durchführen:
+* Beispiel: icon:exclamation-circle[] `datei3.py` 
+
+
+== Schreiben in eine Datei
+
+* Analog werden Strings zeilenweise in eine Datei geschrieben:
++
+[source,python]
+----
+    fobj = open(“ausgabedatei“,“w“)
+    fobj.write(“Zeile1\n“)
+    fobj.write(“Zeile2\n“)
+    fobj.close
+----	
+* Dabei ist `"\n"` ein Zeichen (!), nämlich das Zeichen für den Zeilenumbruch (für alle Betriebssysteme!).
+* Das Zeilenumbruchszeichen muss explizit für jede Zeile geschrieben werden.
+* Gegebenenfalls müssen also die zu schreibenden Daten in Strings umgewandelt werden (plus Zeilenumbruch).
+* Beispiel: icon:exclamation-circle[] `datei4.py` 
+
+
+== Funktionen `read` und `readlines`
+	
+* Lesen aller Zeilen in eine Liste:
++
+[source,python]
+----
+    list_of_lines = open(“meinedatei“,“r“).readlines()
+----
+
+* Lesen aller Zeilen in einen einzigen String:
++
+[source,python]
+----
+    string_with_lines = open(“meinedatei“,“r“).read()
+----	
+
+
+== `With`-Anweisung
+
+* Geht während der Verarbeitung der Schleife etwas schief (Programm-Abbruch, Ausnahme (s. später)), wird die Datei nicht geschlossen. Abhilfe:
++
+[source,python]
+----
+    with open(“dateiname“,“w“) as fobj:
+        anweisungsblock
+----
+* Ein explizites close ist nicht mehr nötig.
+* Die Datei wird auch geschlossen, wenn im Anweisungsblock eine Ausnahme geworfen wird.
+
+
+== Einschub Kontextmanager
+
+* Die With-Anweisung läßt sich auch zur Verwaltung selbst programmierter Ressourcen nutzen.
+* Stichwort dazu: „Context Manager“
+
+
+== Dateiöffnungsmodi
+
+* `"r"`: lesen
+* `"w"`: (über-) schreiben
+* `"a:"` anhängen
+* `"x"`: schreiben, wenn die Datei noch nicht existiert. Andernfalls wird Ausnahme geworfen.
+* angehängtes `+`: Datei wird zum Lesen und Schreiben geöffnet.
+
+
+== Binärdateien
+
+* Dateien können auch im binären Modus geöffnet werden.
+* `"rb"`, `"wb"`, `"ab"`, `"xb"`
+* Als Objekte müssen dann bytes statt Strings verwendet werden.
+
+
+== Formatierte Ausgaben (Bildschirm, Datei)
+
+* Print-Funktion
+** mehrere Ausgaben möglich
+** Trennzeichen kann über `sep=` gesetzt werden (Standard `" "`).
+** Endezeichen kann puer `end=` gesetzt werden (Standard `"\n"`).
+* Format-Methode auf Strings:
+** analog `printf` bei `C`
+** Beispiel:
++
+[source,python]
+----
+betrag = 123.45678
+print("Ergebnis={0:10.3f} DM".format(betrag))
+----
+** Ausgabe: `+Ergebnis=   123.457 DM+`
+* s. auch: https://www.python-kurs.eu/python3_formatierte_ausgabe.php
+
 == icon:question-circle[] Übungen Schleifen
 
 * Fröhliche Zahlen
 * Römische Zahlen
-* Kreuz
+* (Andreas-) Kreuz
 * Bestimmung der maximalen Wortlänge in einer Zeichenkette, die einen Satz darstellt.
 
 == Referenzen

@@ -1,6 +1,8 @@
 # Schreiben Sie ein Programm zur Lösung des Damenproblems
+#
 # Eingabe: Anzahl der Zeilen und Anzahl der Spalten des Schachbretts
 # Ausgabe: Eine Lösung, wenn es eine gibt. 
+#
 # Die Aufgabe besteht darin, in jeder Zeile eine Dame so zu platzieren, dass
 # die Damen sich nicht gegenseitig schlagen können.
 
