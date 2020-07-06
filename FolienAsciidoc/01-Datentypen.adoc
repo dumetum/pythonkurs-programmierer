@@ -2,7 +2,7 @@
 Dr. Christian Heckler
 :icons: font
 :sectids!:
-:imagesdir: ../bilder
+:imagesdir: ../Bilder
 :title-separator: ::
 include::../Build/attributes-de.adoc[]
 
