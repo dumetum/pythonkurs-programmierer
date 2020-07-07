@@ -329,19 +329,37 @@ print(umfang(laenge = laenge, breite = laenge + 2)) <1>
 * „Rechts“ vom Gleichheitszeichen steht ein *Ausdruck* (z.B. die (globale) Variable `laenge`). 
    Dieser wird ausgewertet. Der Wert wird dem Parameter in der Funktion übergeben.
 
-// --------------------------------------------------
-// Ab hier muss ergänzt werden gemäß der alten Folien
-// --------------------------------------------------
-
 
 == Funktionsparameter - was noch
 
+* Funktionen, die eine variable Anzahl von Parametern bekommen:
+** Positionsparameter: `*`
+** Schlüsselwortparameter: `**`
+* Siehe beispielsweise: https://www.python-kurs.eu/parameter.php
 
 == Kommandozeilenparameter
 
+* Parameterübergabe an ein Pythonprogramm beim Programmaufruf.
+* Z.B.: `python pythonprog.py parameter1 parameter2`
+* Bsp (`kommandozeile.py`):
++
+[source,python]
+----
+import sys
+for argument in sys.argv:
+    print(argument)
+----
+* Aufruf: `python kommandozeile.py hallo welt`
+* `sys.argv` ist eine Liste der Parameter (`argv[0]` = Python-Prg.)
+* Bemerkung: Zu `"import sys"`: s. Kapitel „Module“
 
 == docstring
 
+* Dokumentation von Funktionen
+* Steht in dreifachen Anführungszeichen direkt hinter der Funktionsdefinition
+* Wird im Attribut `__doc__` des Funktionsobjektes gespeichert.
+* Wird bei `help(funktion)` ausgegeben.
+* Bsp: `docstring.py` icon:exclamation-circle[]
 
 == Funktionsreferenzen	
 
@@ -420,28 +438,62 @@ namen.sort(key=vorname)
 * siehe `funktions_ref.py` icon:exclamation-circle[]
 	
 	
-
 == Anonyme Funktionen
+
+* Die Vornamen bzw. Nachnamen-Funktion ist extrem simpel. Eine „normale“ Funktionsdefinition bläht den Quelltext auf.
+* Alternative: Anonyme Funktion via `lambda`-Ausdruck: `key=lambda t: t[0]`
+* Siehe: lambda.py
+* Auf das Schlüsselwort `lambda` folgt:
+** Parameterliste
+** Doppelpunkt
+** Ausdruck (dessen Ergebnis zurückgegeben wird)
+* Kontrollstrukturen sind also nicht möglich.
 
 
 == Closures
 
+* Für Anhänger der funktionalen Programmierung.
+* Eine Funktion (ein Funktionsobjekt) kann den Zugriff auf den Erstellungskontext erhalten.
+* Das nennt man Closure.
+* Beispiel: `closure.py` icon:exclamation-circle[]
+
 
 == Generatoren
 
+* Funktion, die bei jedem Aufruf einen weiteren Wert zurückgibt.
+* Werte werden also nicht a priori berechnet und zurückgegeben.
+* Vorteile:
+** Spart Platz, die Gesamtergebnismenge muss nicht auf einmal im Speicher gehalten werden.
+** Kann Zeit sparen, wenn zum Beispiel nach dem 100. Element festgestellt wird, dass die nächsten 10.000 Elemente nicht mehr benötigt werden; also auch nicht mehr berechnet werden müssen.
+* Statt mit return wird das Teilergebnis mit yield zurückgegeben.
+* Endgültige Beendigung der Funktion durch return.
+* s. `fib_liste.py` und `fib_gen.py` icon:exclamation-circle[]
 
 == Generator-Ausdrücke
+
+* Ausdruck für Generator
+* Also Definition eines Generators, ohne eine Funktion zu schreiben
+* Bsp.: `x*x for x in range(101)`
+* Ausdruck für einen Generator für die ersten 100 Quadratzahlen
+* Bsp.: `sum(x*x for x in range(101))`
+* Damit lassen sich insbesondere Listen elegant erzeugen:
+* Bsp.: liste = [x*x for x in range(100)]
+* Dafür gibt es dann sogar einen eigenen Begriff: *Listen-Abstraktion* oder *List Comprehension*
+* https://www.python-kurs.eu/python3_list_comprehension.php
 
 
 == Die Funktion `map`
 
-* Beispiel: Funktion `map`
+* Alternative zur Listenabstraktion
 * `map(f,s)` wendet die Funktion f auf jedes Element der Sequenz `s` an und gibt einen Iterator zurück
 ** (den man in eine Liste umwandeln kann oder
 ** über den man mit for schleifen kann).
-* Beispiel:
-** Sei `l` eine Liste von Zahlen, dann liefert
-** `list(map(math.sqrt, l))` Liste der Wurzeln der Zahlen 
+* Beispiel: Summe der Quadratzahlen von oben:
++
+[source,python]
+----
+liste = list(map(lambda x: x*x, range(101)))
+----
 
 
 == Die Funktion `reduce`
@@ -453,12 +505,13 @@ namen.sort(key=vorname)
 ----
 from functools import reduce
 ----
-* Beispiel: 
-** Sei `add` eine Funktion, die zwei Werte addiert und `l` eine Liste von Zahlen, dann liefert
-** `reduce(add,l)` die Summe aller Listenelemente
-* Die Funktion `add` muss man nicht definieren:
-** `reduce(lambda x,y: x+y, l)`
-** Der _lambda-Ausdruck_ definiert eine _anonyme Funktion_
+* Beispiel: Summe der Quadratzahlen von oben
++
+[source,python]
+----
+reduce(lambda x,y: x+y, liste)
+----
+
 
 
 == Einschub: Funktionale Programmierung statt Schleifen  
@@ -473,15 +526,201 @@ from functools import reduce
 
 
 // ----------------------
-// Jetzt sollten Ausnahmen kommen. Nehme Folien des Anfängerkurses und überarbeite sie gemäß der alten Folien des Fortgeschrittenenkurses
+// AUSNAHMEN: Ueberarbeite die Folien mit Hilfe der Folien des Fortgeschrittenenkurses
 // -----------------------
 
+== Ausnahmebehandlung - Motivation
+
+* Im „Nachtbetrieb“ werden „viele“ Datensätze bearbeitet. Was passiert, wenn beim
+  einem Datensatz ein Fehler auftritt (z.B. „Divsion durch Null“)?
+* Das Programm bricht ab (siehe icon:exclamation-circle[] `ex1.py`)!
+* Wünschenswert wäre aber, dass der Datensatz ignoriert wird, und das Programm
+  mit der Verarbeitung des nächsten Datensatzes weitermacht.
+* Wie kann man das erreichen? Siehe icon:exclamation-circle[] `ex2.py`.
+* Nachteile: 
+** Der Code wird aufgebläht. Die eigentliche Fachlichkeit ist nicht mehr zu erkennen.
+** Man muss an jeder Stelle im Code überlegen, was im Falle eines unerwarteten Ereignisses zu tun ist.
+
+
+== Ausnahmen fangen
+
+* Bessere Lösung: Siehe icon:exclamation-circle[] `ex3.py`.
+* Ausnahmen, die in einem _Codeblock_ geworfen werden (`try`), können „gefangen“ werden.
+* In einem `except`-Block wird definiert, was zu tun ist, wenn die Ausnahme auftritt.
+* Ausführung:
+** Die Anweisungen zwischen `try` und `except` werden ausgeführt.
+** Tritt keine Ausnahme auf, wird der `except`-Block übersprungen.
+** Tritt eine Ausnahme auf, so wird sofort bei deren Auftreten in den `except`-Block gesprungen.
+	
+
+== Ausnahmetypen
+
+* Mit `except Exception` (wie im Beispiel) werden alle Arten von Ausnahmen gefangen (was man aber nicht immer will).
+* Es können auch „Unterarten“ geworfen und (verschieden) behandelt werden.
+* Beispiel: `int("Hallo")` liefert einen ValueError.
+* Man hätte also auch `except ValueError` schreiben können.
+* Tritt eine Ausnahme auf, die nicht abgefangen wird, wird die Ausnahme weiter „nach oben“ geworfen.
+* Beispiele: 
+** icon:exclamation-circle[] `ex4.py`: Abfangen von zwei Ausnahmen
+** icon:exclamation-circle[] `ex5.py`: Division durch 0 wird nicht gefangen	
+
+== Ausnahmen werfen
+
+* Wenn im eigenen Programm eine Situation auftritt, die an dieser Stelle nicht erwartet wurde, 
+  kann man auch selbst eine Ausnahme werfen (Bsp: als Entwickler der `int`-Funktion):
++
+[source,python]
+----
+    raise Exception(“Fehler: ...“)
+----  
+	
+* Beispiel: icon:exclamation-circle[] `ex6.py`
+* Statt eine Ausnahme vom Typ `Exception` zu werfen, kann man auch eigene Ausnahmetypen definieren 
+  (was i.a. auch besser ist). Das kommt aber später (neue Klasse im Sinne der Objektorientierten Programmierung)!
+	
+== Ausnahmen werfen - Anmerkungen
+
+* *Empfehlung*: Ausnahmen nur werfen, wenn ein unerwarteter Fall auftritt, 
+  nicht, um (erwartete) Programmlogik zu implementieren.
+* Es ist eine (manchmal schwierige) Entwurfsentscheidung, wann man Ausnahmen benutzt 
+  und wann eine „normale“ Behandlung (z.B. via if – Abfrage).	
+
+
+== Ausnahmen - Übung / Fallbeispiel
+
+* Programm zur Berechnung eines Durchschnittsverbrauch: icon:exclamation-circle[] `ex7.py`.
+* Der „gerade“ (fehlerlose) Fall funktioniert. Das Programm ist aber nicht „stabil“. Programmabbruch bei Fehler.
+* Übung 1: Bei einem Fehler soll eine entsprechende Ausgabe erfolgen. Es soll der Durchschnitt der übrigen Monate berechnet werden: 
+  icon:exclamation-circle[] `ex8.py`.
+* Übung 2: Einträge mit einer ungültigen Monatsbezeichnung (d.h. nicht in der Liste `monate`) sollen nicht berücksichtigt werden. 
+  Es soll eine entsprechende Ausgabe erfolgen: 
+  icon:exclamation-circle[] `ex9.py`.
+* Übung 3: Wie sähe eine Lösung ohne Ausnahmen aus?
+* Bemerkung: In der Praxis würde man die Ausgaben in eine „Log-Datei“ schreiben.
+
+
+== icon:question-circle[] Übung 12 - Ausnahmen und röm. Zahlen
+
+* Was passiert, wenn Sie bei der aktuellen Lösung eine Zeichenkette angeben, die keiner römischen Zahl entspricht?
+* Schreiben Sie ein Programm, das in einer Endlosschleife eine Eingabe entgegen nimmt:
+** Bei der Eingabe von `"Ende"` soll das Programm beendet werden.
+** Bei einer fehlerhaften Eingabe soll eine entsprechende Meldung ausgegeben werden 
+   und mit der nächsten Eingabe fortgefahren werden.
+* siehe Ordner `12_uebung_roemische_zahl_ausnahmen`
 
 
 // ----------------------
-// Jetzt Module / Packages. Nehme Folien des Anfängerkurses und überarbeite sie gemäß der alten Folien des Fortgeschrittenenkurses
+// MODULE / Packages: Ueberarbeite die Folien mit Hilfe der Folien des Fortgeschrittenenkurses
 // -----------------------
 
+== Module - Motivation
+
+* Motivation von Funktionen: Wiederverwendung
+** des eigenen Codes
+** aber auch von „Fremd-Code“.
+* Wie kann man nun Funktionen, die in einem Programm definiert sind, in anderen Programmen (wieder-) verwenden?
+* Lösung: Import der Python-Datei, in der die Funktionen definiert wurden. In diesem Fall nennt man die Python-Datei „Modul“.
+* Beispiel: icon:exclamation-circle[] `mod1.py` , `mod2.py`
+* In einem Modul kann man Funktionen zu einem Thema bündeln (z.B. mathematische Funktionen, 
+  Funktionen zur String-Verarbeitung, Funktionen für Dateibehandlung).
+* Module stellen also eine weitere Ebene der Strukturierung des Quellcodes dar.	
+
+
+== Module - Anwendung
+
+* Import eines Moduls mit der Import-Anweisung (Dateiname der Python-Datei ohne Endung .py)
++
+[source,python]
+----
+import mod1
+----
+* Die Funktionen und globalen Variablen, die in der importierten Python-Datei definiert wurden, 
+  können dann durch voranstellen des Modulnamens verwendet werden:
++
+[source,python]
+----
+mod1.f1()
+----
+
+== Module - Suchpfad
+
+* Wo werden Module gesucht, die per Import geladen werden sollen?
+** im aktuellen Verzeichnis
+** im Standardpfad der Python-Installation (z.B. math)
+** Umgebungsvariable PYTHONPATH
+* Abkürzung:
++
+[source,python]
+----
+import mod as m
+m.f1() # statt mod.f1()
+----
+* Es gibt noch andere Möglichkeiten zum Import, die hier nicht besprochen werden sollen 
+ (s. https://www.python-kurs.eu/python3_modularisierung.php)
+	
+	
+== Module - Import
+
+* Was passiert eigentlich genau bei dem Import eines Moduls (also einer Python-Datei)?
+* Der Interpreter führt die Datei aus, d.h. 
+** Funktionsdefinitionen und globale Variablen sind danach an der Aufrufstelle bekannt – 
+  mit dem Modulnamen als Präfix (das ist der eigentliche Sinn des Imports).
+** „Normale Anweisungen“ werden aber auch ausgeführt.
+* Letzteres ist normalerweise nicht gewünscht. Was kann man dagegen tun?
+* Die Anweisungen, die nicht in Funktionen stehen und die nicht beim Import ausgeführt werden sollen, hinter if-Block:
++
+[source,python]
+----
+    if __name__ == “__main__“:
+----
+* Beispiel: icon:exclamation-circle[] `mod3.py`, `mod4.py`.
+
+
+== Pakete
+
+* Wie kann man zusammengehörige Module gruppieren?
+** Zusammenfassung zu einem Verzeichnis!
+** Das nennt man dann im Python-Sprech „Paket“
+** Ein Paket ist also zunächst nichts anderes als ein Verzeichnis.
+* Eine Besonderheit gibt es dann doch: Datei `__init__.py` im Verzeichnis (s. später).
+* Pakete werden dort gesucht, wo auch Module gesucht werden.
+* Pakete sind also nach Funktionen und Modulen eine weitere Ebene der Stukturieren des Quellcodes
+	
+	
+== Verwendung von Paketen
+
+* Wie verwendet man Module aus einem Paket?
+** Import des Moduls über den vollständigen Pfad (vgl. Pfad im Betriebssystem, aber Trennung mit Punkt statt /). 
+	Beispiel: icon:exclamation-circle[] `pak1.py`
+** Import des Moduls, wenn im Paket die Module via der Datei `__init__.py` eingeladen werden:
+	Beispiel: icon:exclamation-circle[] `pak2.py`
+* Wie ein Verzeichnis Dateien und weitere Verzeichnisse enthalten kann, kann ein Paket Module und auch weitere Pakete enthalten.	
+	
+	
+== Pakete - Import
+
+Was passiert beim Import eines Pakets?
+
+* Beim Import eines Pakets wird die Datei `__init__.py` in dem entsprechenden Ordner ausgeführt.
+* Dort kann man also die Importe der Module durchführen.	
+	
+	
+== Module und Pakete - Zusammenfassung
+
+Modul::
++
+--
+* Ein Modul ist eine Python-Datei.
+* Beim Import eines Moduls wird die Datei ausgeführt, wodurch Funktionen und globale Variable an der Aufrufstelle bekannt sind.
+--
+Paket::
++
+--
+* Ein Paket ist ein Verzeichnis mit der Datei `__init__.py`
+* Beim Import wird diese Datei ausgeführt.
+* Sie kann also dazu verwendet werden, die Module (=Python-Dateien) in dem Paket (=Verzeichnis) zu importieren.
+Muss man aber nicht.
+--	
 
 
 == icon:question-circle[] Übungen Funktionen
