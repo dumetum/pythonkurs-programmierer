@@ -525,9 +525,6 @@ reduce(lambda x,y: x+y, liste)
 ** Anwendung einer Operation auf je zwei Elemente einer Liste: `reduce`
 
 
-// ----------------------
-// AUSNAHMEN: Ueberarbeite die Folien mit Hilfe der Folien des Fortgeschrittenenkurses
-// -----------------------
 
 == Ausnahmebehandlung - Motivation
 
@@ -564,6 +561,25 @@ reduce(lambda x,y: x+y, liste)
 ** icon:exclamation-circle[] `ex4.py`: Abfangen von zwei Ausnahmen
 ** icon:exclamation-circle[] `ex5.py`: Division durch 0 wird nicht gefangen	
 
+
+== Ausnahmen - else
+
+* Optional.
+* Hinter den `except`-Blöcken.
+* Wird nur ausgeführt, wenn keine Exception aufgetreten ist.
+* Vorteil gegenüber dem Fall, dass die Anweisungen im `try`-Block stehen: Ausnahmen werden nicht „aus Versehen“ gefangen.
+* Beispiel: icon:exclamation-circle[] `else.py`
+
+
+== Ausnahmen - finally
+
+* Optional
+* Der Block hinter `finally` wird auf jeden Fall ausgeführt, egal ob eine Ausnahme geworfen wurde oder nicht.
+* Auch dann, wenn die Ausnahme nicht gefangen wird.
+* Eignet sich daher gut für Aufräumarbeiten, z.B. das Schließen von Dateien.
+* Ganz am Ende (hinter `else`, wenn vorhanden)
+* Beispiel:  icon:exclamation-circle[] `finally.py`
+
 == Ausnahmen werfen
 
 * Wenn im eigenen Programm eine Situation auftritt, die an dieser Stelle nicht erwartet wurde, 
@@ -578,6 +594,7 @@ reduce(lambda x,y: x+y, liste)
 * Statt eine Ausnahme vom Typ `Exception` zu werfen, kann man auch eigene Ausnahmetypen definieren 
   (was i.a. auch besser ist). Das kommt aber später (neue Klasse im Sinne der Objektorientierten Programmierung)!
 	
+	
 == Ausnahmen werfen - Anmerkungen
 
 * *Empfehlung*: Ausnahmen nur werfen, wenn ein unerwarteter Fall auftritt, 
@@ -586,32 +603,6 @@ reduce(lambda x,y: x+y, liste)
   und wann eine „normale“ Behandlung (z.B. via if – Abfrage).	
 
 
-== Ausnahmen - Übung / Fallbeispiel
-
-* Programm zur Berechnung eines Durchschnittsverbrauch: icon:exclamation-circle[] `ex7.py`.
-* Der „gerade“ (fehlerlose) Fall funktioniert. Das Programm ist aber nicht „stabil“. Programmabbruch bei Fehler.
-* Übung 1: Bei einem Fehler soll eine entsprechende Ausgabe erfolgen. Es soll der Durchschnitt der übrigen Monate berechnet werden: 
-  icon:exclamation-circle[] `ex8.py`.
-* Übung 2: Einträge mit einer ungültigen Monatsbezeichnung (d.h. nicht in der Liste `monate`) sollen nicht berücksichtigt werden. 
-  Es soll eine entsprechende Ausgabe erfolgen: 
-  icon:exclamation-circle[] `ex9.py`.
-* Übung 3: Wie sähe eine Lösung ohne Ausnahmen aus?
-* Bemerkung: In der Praxis würde man die Ausgaben in eine „Log-Datei“ schreiben.
-
-
-== icon:question-circle[] Übung 12 - Ausnahmen und röm. Zahlen
-
-* Was passiert, wenn Sie bei der aktuellen Lösung eine Zeichenkette angeben, die keiner römischen Zahl entspricht?
-* Schreiben Sie ein Programm, das in einer Endlosschleife eine Eingabe entgegen nimmt:
-** Bei der Eingabe von `"Ende"` soll das Programm beendet werden.
-** Bei einer fehlerhaften Eingabe soll eine entsprechende Meldung ausgegeben werden 
-   und mit der nächsten Eingabe fortgefahren werden.
-* siehe Ordner `12_uebung_roemische_zahl_ausnahmen`
-
-
-// ----------------------
-// MODULE / Packages: Ueberarbeite die Folien mit Hilfe der Folien des Fortgeschrittenenkurses
-// -----------------------
 
 == Module - Motivation
 
@@ -648,6 +639,9 @@ mod1.f1()
 ** im aktuellen Verzeichnis
 ** im Standardpfad der Python-Installation (z.B. math)
 ** Umgebungsvariable PYTHONPATH
+
+== Module Import
+
 * Abkürzung:
 +
 [source,python]
@@ -655,11 +649,18 @@ mod1.f1()
 import mod as m
 m.f1() # statt mod.f1()
 ----
+* Direkter Import einer Funktion in den Namensraum:
++
+[source,python]
+----
+from mod import f1
+f1() # statt mod.f1()
+----
 * Es gibt noch andere Möglichkeiten zum Import, die hier nicht besprochen werden sollen 
  (s. https://www.python-kurs.eu/python3_modularisierung.php)
 	
 	
-== Module - Import
+== Module - Was passiert beim Import
 
 * Was passiert eigentlich genau bei dem Import eines Moduls (also einer Python-Datei)?
 * Der Interpreter führt die Datei aus, d.h. 
