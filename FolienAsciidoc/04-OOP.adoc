@@ -207,17 +207,27 @@ Methoden::
 * Anzeige des Kontostandes
 --
 
-
-//
-// Hier weiter
-//
-
 == Einschub: Implementierung ohne OO
 
 * Wie könnte eine Implementierung aussehen ohne OO?
+** Modellierung eines Kontos als Tupel.
+** Modellierung eines Kontos als Dictionary.
+* Wie sähen in diesem Falle die Methoden / Funktionen (einzahlen, ueberweisen) aus?
+* Nachteil: die Funktionen sind getrennt von den Daten. (Natürlich könnte man alle Funktionen, die auf den entsprechenden Datentypen arbeiten, in einem Modul bündeln).
+* Idee OO: Daten (Attribute) und Funktionen (Methoden) an einer Stelle zusammenführen (Klasse).
 
 
 == Einschub: Grundsätzliches zu Python und OO
+
+* In einer Klasse werden die Attribute und Methoden definiert.
+* Alle Objekte der Klasse besitzen dann diese Attribute und Methoden.
+* Python (als dynamische Sprache):
+** Variablen werden durch die Zuweisung eines Wertes „deklariert“
+** Man kann also nicht „statisch“ in einer Klasse die Attribute der Klasse definieren
+** Statt dessen können Attribute dynamisch zu einem Objekt zugefügt werden.
+** Damit alle Objekte einer Klasse dieselben Attribute haben, sollten diese also in einer Methode erzeugt werden.
+
+
 
 
 == Beispielimplementierung
@@ -350,19 +360,6 @@ k.einzahlen(10) # Interpretiert wie Konto.einzahlen(k, 10)
 * `+__init__()+` ist eine sog. „magische Methode“, weil sie per Namenskonvention automatisch von Python aufgerufen wird.
 
 
-== icon:question-circle[] Übungen 
-
-* Kontoklasse erweitern:
-** Erweitern Sie die Beispielklasse Konto um eine Methode „auszahlen.
-** s. `uebungen/16_uebung_oo_konto_auszahlen`
-* Römische Zahlen:
-** Erstellen Sie eine Klasse RoemischeZahl.
-** Die Klasse hat ein Attribut roemische_zahl_str, der im Konstruktor gesetzt wird.
-** Die Klasse hat eine Methode konvertiere_zu_dezimal, die den Dezimalwert der römischen Zahl zurückgibt.
-** Erzeugen Sie ein Objekt der Klasse und wenden darauf die Methode konvertiere_zu_dezimal an.
-** s. `uebungen/17_uebung_roemische_zahl_klasse`
-
-
 == Klassenattribute
 
 * „Normale“ Attribute existieren pro Objekt und haben pro Objekt einen anderen Wert, z.B. `konto_stand`.
@@ -396,12 +393,12 @@ if __name__ == "__main__":
 image::klassenattribute.jpg[align=center]
 
 
-== Klassenattribute - Beispiel Röm. Zahlen
+== Statische Methoden
 
-* Beispiel: Klasse für römische Zahlen
-* Das Dictionary, das für die Umrechnung benötigt wird, könnte als Klassenattribut definiert werden.
-* Es existiert dann nur einmal und wird nicht für jedes Objekt neu erzeugt!
-* Wer mag, mache dies als Übung. icon:question-circle[]
+* Eine Klassenmethode ist nur über die Klasse, nicht über Objekte zugreifbar.
+* Sie kann nur auf Klassenattribute zugreifen.
+* Definition wie „normale“ Methode in Klasse aber ohne self-Parameter.
+* Bsp.: icon:exclamation-circle[] `statische_methode.py`
 
 
 == Wdh.: Idee der OO
@@ -436,12 +433,39 @@ icon:exclamation-circle[] `private.py`
 * Man muss „nur“ die öffentliche Schnittstelle der Klasse kennen.
 
 
-== Die Methode `+__str__()+`
+== Properties 1
+
+* Auf (interne) Attribute sollte möglichst nur innerhalb von Methoden zugegriffen werden.
+* Das gilt auch für Attribute, auf die man von außen vielleicht doch zugreifen will.
+* Klassisch: getter- und setter-Methoden.
+* Warum? Weil man dort zusätzliches Verhalten implementieren könnte (aber nicht muss).
+* Beispiel: icon:exclamation-circle[] `properties_1.py`, `properties_2.py`
+* getter und setter sind Ballast, wenn eben nichts weiteres getan wird, als auf die Attribute zuzugreifen.
+
+
+== Properties 2
+
+* Vermeidung dieses Balastes:
+** Zunächst keine getter und setter programmieren und direkt auf das Attribut zugreifen.
+** Braucht man doch getter und setter, so schreibt man diese und definiert in der Klasse properties:
+	`kontoinhaber = property(get_kontoinhaber, set_kontoinhaber)`
+* Der Zugriff „von außen“ bleibt dann unverändert.
+* Beispiel: icon:exclamation-circle[] `properties_3.py`
+* Hinweis: Wenn möglich sollte man den Zugriff auf Attribute vermeiden – auch über getter und setter (Setzen nur im Konstruktor).
+** Bsp: Kontostand
+** Bsp: Kontoinhaber
+
+
+== Die Methoden `+__str__()+` und `+__repr__()+`
 
 * Darstellung eines Objekts als String
 * Wird für ein Objekt `k` die Funktion `str` aufgerufen (`str(k)`) sucht der Interpreter nach einer 
 Methode `+__str__()+` der Klasse und ruft diese auf (`+k.__str__()+`)
-* icon:exclamation-circle[] `string.py`
+* Analog `repr(k)`
+* Besitzt eine Klasse nur `+__repr__()+`, so wird immer diese verwendet.
+* `str`: Darstellung für den Endanwender
+* `repr`: Stringrepräsentation im Sinne von `eval(repr(k))`
+* icon:exclamation-circle[] `repr.py`
 
 
 == Operator Overloading
@@ -466,21 +490,46 @@ Methode `+__str__()+` der Klasse und ruft diese auf (`+k.__str__()+`)
 * Addition einer Zahl (`int`): Muss in `add` abgefragt werden.
 * Weiterer Anwendungsfall von `+__radd__()+`
 
-== icon:question-circle[] Übung Operator Overloading 
 
-* Erweitern Sie die Klasse `Zeitspanne`, um die besagte `+__radd__()+`-Methode
-* Zusätzlich können Sie sie noch um die erweiterten Zuweisungen erweitern, d.h. `+=`, `-=` usw.
-* siehe Ordner `uebungen/18_Zeitspanne`
+== Magische Methoden `hash` und `equals`
 
-
-== icon:question-circle[] Zusatzübung Operator Overloading 
-
-* Schreiben Sie eine Klasse `Punkt` zur Repräsentation eines zweidimensionalen Punktes (x- und y- Koordinate)
-  mit einer Additions-Methode zur Addition zweier Punkte.
-* siehe Ordner `uebungen/18A_Punkt`
+* Erinnerung: Will man Objekte einer eigenen Klasse als Schlüssel eines Dictionaries verwenden, müssen die Methoden sinnvoll überschrieben werden (s. `hashable.py` icon:exclamation-circle[]):
+** Hash: `__hash__()`: Gibt ein Integer zurück.
+** Equals: `__eq__()`: Vergleicht ein Objekt mit einem anderen.
+* Es sollte gelten:
+** Wenn o1 == o2, dann o1.__hash__() == o2.__hash__()
+** Das umgekehrte muss nicht unbedingt gelten.
 
 
-== icon:question-circle[] Übung 19 - Verkettete Liste
+
+== Hash und Equals 2
+
+* Es sollte nicht möglich sein, ein bestehendes Objekt so zu ändern, dass sich der Hash-Code ändert. Man findet dann nämlich das Objekt nicht mehr in dem Dictionary.
+* Das ist der Grund, warum bei den eingebauten Typen nur die „unveränderlichen“ Typen als Schlüssel erlaubt sind.
+* Umgekehrt ist das ein Grund, warum „wesentliche“ Attribute nicht von außen zugreifbar sein sollen.
+* Soll eine Klasse nicht als Schlüssel verwendet werden können:
++
+[source,python]
+----
+class NotHashable:
+    __hash__ = None
+----
+* (siehe icon:exclamation-circle[] `no_hash.py`)
+
+
+== Iteratoren
+
+* Wenn es möglich sein soll, mit einer for-Schleife über ein Objekt einer Klasse schleifen zu können, muss die Klasse die magische Methode
+	`__iter__()`
+implementieren, die einen Iterator zurückgibt.
+* Ein Iterator ist ein Objekt, das
+** die Methode __iter__() implementiert
+** und eine Methode __next__(), 
+*** die das nächste Element zurückgibt
+*** und eine StopIteration-Exception wirft, wenn kein Element mehr verfügbar
+* s.  icon:exclamation-circle[] `iterator.py`
+
+== icon:question-circle[] Verkettete Liste
 
 * Implementierung einer eigenen Listenklasse ohne Verwendung von
 ** List
@@ -500,14 +549,12 @@ Methode `+__str__()+` der Klasse und ruft diese auf (`+k.__str__()+`)
 ** Das Inhaltsattributs des neuen Knotens wird auf das einzufügende Element gesetzt.
 ** Der Nachfolgeknoten des neuen Knotens ist `None`
 ** Der Nachfolgeknoten des bisher letzten Knotens in der Liste wird auf den neuen Knoten gesetzt
-* siehe Ordner `uebungen/19_uebung_verkettete_liste`
+
 
 == Illustration Verkettete Liste
 
 image::verkettete_liste.jpg[align=center]
 
-
-== icon:question-circle[] Übungen Objektorientierung
 
 
 
