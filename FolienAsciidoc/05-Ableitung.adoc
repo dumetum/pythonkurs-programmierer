@@ -1,0 +1,275 @@
+= Programmierung mit Python für Programmierer:: Kapitel 5 - OO Ableitung
+Dr. Christian Heckler
+:icons: font
+:sectids!:
+:imagesdir: ../Bilder
+:title-separator: ::
+include::../Build/attributes-de.adoc[]
+
+== Vorbemerkungen
+
+* Verwendete Literatur: siehe Referenzen
+* Verwendete Symbole:
+** icon:exclamation-circle[]: Beispielprogramm
+** icon:info-circle[]: Weitere Erläuterungen im Kurs
+** icon:question-circle[]: Übung
+
+
+== Wdh. Objektorientierte Programmierung
+
+* Idee: Modellierung der Fachlichkeit durch „Objekte“
+* Beispiel: Bankanwendung:
+** Konto
+** Kontoauszug
+* Auf solchen Objekten sind Operationen möglich, z.B. Einzahlung auf ein Konto;
+* _Klasse_: Allgemeine Beschreibung:
+** Was charakterisiert ein Konto (_Attribute_)?
+** Welche Operationen (_Methoden_) sind auf einem Konto möglich?
+* _Objekt_: Konkrete _Instanz_ eines „Konto“
+* Prinzipien: Datenkapselung, Datenabstraktion, Geheimnisprinzip
+
+
+== Motivation Vererbung
+
+* Das Prinzip der Vererbung ist ein weiteres wesentliches Prinzip der Objektorientierten Programmierung.
+* Idee:  
+** Wiederverwendung durch Benutzung von Gemeinsamkeiten.
+** Hierarchiebildung
+* Bsp: Biologie:
+** Reich (z.B. Tiere)
+*** Stamm (z.B. Wirbeltiere)
+**** Klasse (z.B. Säugetiere)
+***** Ordnung (z.B. Primaten)
+****** Familie (z.B. Hominidae)
+******* Gattung (z.B. Homo)
+
+
+== Motivation Vererbung 2
+
+* „Jedes Säugetier ist ein Wirbeltier“ …
+* … und hat („erbt“) damit alle Eigenschaften eines Wirbeltieres.
+* Um ein Säugetier zu beschreiben, genügt es also, die zusätzlichen Eigenschaften zu definieren. 
+  Die Beschreibung der Eigenschaften der Wirbeltiere werden in diesem Sinne wiederverwendet.
+* Hierarchiebildung ist ein allgemeines Konzept zur Beherrschung von Komplexität.
+* Zurück zu Klassen: Hierarchiebildung über Ableitung. 
+  Leitet eine Klasse `B` von einer Klasse `A` ab, erbt `B` alle Eigenschaften der Klasse `A`. 
+  Man kann `B` dann um zusätzliche Eigenschaften erweitern (und anpassen).
+
+
+== Nomenklatur
+
+Die folgenden Begriffe meinen alle dasselbe:
+
+* Klasse `B` ist abgeleitet von Klasse `A`.
+* `B` erbt von `A`.
+* `A` ist Basisklasse von `B`.
+* `B` ist abgeleitete Klasse (Kind-Klasse) von `A`.
+
+image::ableitung.jpg[align=center]
+
+== Beispiel Vererbung
+
+* Ein Girokonto ist ein „normales“ Konto mit zusätzlichen Eigenschaften 
+ (z.B. sind Überweisungen von einem Girokonto auf ein anderes möglich).
+* Hat man eine Klasse Konto implementiert, 
+  kann man diese zur Implementierung eines Girokontos wiederverwenden, 
+  indem man die Klasse Girokonto von der Klasse Konto ableitet 
+  (und beispielsweise um eine Methode für Überweisungen erweitert).
+* Eine weitere Klasse könnte ein Sparkonto sein, die ebenfalls von der Konto-Klasse ableitet.
+* Ein Sparkonto hat zusätzlich zu einem Konto einen Zinssatz und eine Methode zur Berechnung der Zinsen.
+* icon:exclamation-circle[] `konto_spar`
+
+
+== Technische Grundlagen (nach <<EK>>)
+
+* Definition einer Klasse `B`, die von einer Klasse `A` abgeleitet ist:
++
+[source,python]
+----
+class B(A):
+----	
+
+* Beispiel:
++
+[source,python]
+----
+class A:
+    def __init__(self):
+        self.x = 123
+        print("Konstruktor von A")
+    def m(self):
+        print("m von A. self.x = ", self.x)
+
+class B(A):
+    def n(self):
+        print("n von B")
+b = B() # Konstruktor von A
+b.n()   # Methode n von B
+b.m()   # Methode m von A. self.x = 123
+----	
+
+
+== Überschreiben von Methoden
+
+* Die Klasse B hat die Implementierung von `+__init__()+` von `A` geerbt. 
+* Ein abgeleitete Klasse benötigt aber oft einen eigenen Konstruktor 
+  (um die zusätzl. Attribute von `B` zu initialisieren – im Beispiel den Zinssatz):
++
+[source,python]
+----  
+    class B(A):
+        def __init__(self):
+            self.y = 4711
+            print("Konstruktor von B")
+        def n(self):
+            print("n von B. self.y = " self.y)
+	
+    b = B() # Konstruktor von B
+    b.n()   # n von B. self.y = 4711
+    b.m()   # AttributeError: 'B' object has no attribute 'x'
+----
+
+== Überschreiben von Methoden 2
+
+* `B` erbt zwar `+__init()__+` von `A`, „überschreibt“ sie dann aber mit einer eigenen Implementierung von `+__init__()+`.
+* Beim Erzeugen des Objekts `b` wird also nur `+__init__()+` von `B` aufgerufen, nicht `+__init__()+` von `A`. 
+  Somit wird auch das Attribut `x` der Klasse `A` nicht angelegt.
+* Generell läßt sich jede Methode der Basisklasse überschreiben.
+* Die Methode der Basisklasse läßt sich aber explizit aufrufen.
+* Für die `+__init__()+` - Methode sollte das auch immer gemacht werden, damit das Objekt korrekt initialisiert ist, 
+  d.h. damit alle Attribute des „Basisklassenanteils“ korrekt initialisiert sind.
+
+
+== Überschreiben von Methoden 3
+
+Eine korrekte Implementierung der abgeleiteten Klasse `B`:
+
+[source,python]
+----  
+    class B(A):
+        def __init__(self):
+            super().__init__() # Aufruf der Methode der Basisklasse
+            self.y = 4711
+            print("Konstruktor von B")
+        def n(self):
+            print("n von B. self.y = ", self.y)
+	
+    b = B() # Konstruktor von A, Konstruktor von B
+    b.n()   # n von B. self.y = 4711
+    b.m()   # m von A. self.x = 123
+----	
+
+== Überschreiben von Methoden 4
+
+* Jede Methode der Basisklasse kann überschrieben werden.
+* Jede Methode der Basisklasse kann explizit aufgerufen werden (egal in welcher Methode).
++
+[source,python]
+---- 
+    class B(A):
+        def __init__(self):
+            super().__init__()
+            self.y = 4711
+        def m(self):
+            print("Methode m von B.")
+            super().m() 
+	
+    b = B()
+    b.m() # m von B. m von A. self.x = 123
+----
+
+
+== Zugriffsrechte
+
+Erinnerung: Attribute und Methoden
+
+* Öffentlich: Ohne Unterstrich. Beliebiger Zugriff möglich.
+* Private: Beginnend mit zwei Unterstrichen: Zugriff nur innerhalb der Klasse möglich.
+* Protected: Beginnend mit einem Unterstrich: Zugriff aus Klasse und abgeleiteten Klassen möglich. Nicht von außen.
+
+
+== icon:question-circle[] Übung 20 - Girokonto
+
+* Leiten Sie von der Klasse `Konto` eine weitere Klasse `GiroKonto` ab.
+* Diese erweitert die Klasse `Konto` um eine Methode, um einen Geldbetrag auf ein 
+  anderes `Konto` zu überweisen.
+* Parameter der Funktion:
+** das Zielgirokonto
+** der zu überweisende Betrag
+* siehe Ordner `uebungen/20_uebung_ableitung_girokonto`
+
+== Komplexere Klassenhierarchien
+
+image::ableitungshierarchie.jpg[align=center]
+
+== Hinweise
+
+* Der Entwurf der „richtigen“ (angemessenen) Klassen und der Hierarchie ist die eigentliche „Kunst“ bei der OO-Software-Entwicklung.
+* Keine unnötig komplexe Klassenhierarchien bilden.
+* Bsp.: Braucht man im letzten Beispiel Klassen zur Unterscheidung von `PlusKonto` und `GoldKonto` oder tut es auch ein Attribut in `GiroKonto`?
+* Ableitung nur bilden, wenn eine „ist ein“-Beziehung gilt.  
+  Ableitungen, die nur zum Zwecke der Code-Vererbung gebildet werden, obwohl „ist ein“ nicht gilt, sind zu vermeiden.
+* Alternative zu Vererbung in diesem Fall: Verwendung eines Attributs vom Typ der Klasse, deren Methoden man wiederverwenden will.
+
+
+== Mehrfachvererbung
+
+* Wie gesehen, ist es möglich, von einer Klasse mehrere Klassen abzuleiten
+ (`Girokonto` und `Sparkonto` von `Konto`).
+* Das umgekehrte ist auch möglich: Eine Klasse erbt von mehreren.
+* Beispiel: icon:exclamation-circle[] `mehrfach.py` 
++ 
+image::mehrfach.jpg[align=center]
+* Fragen:
+** Welchen Wert hat das Attribut `s` des Objekts `ab`? `"B"`: Weil der Konstruktor von `B` nach dem Konstruktor von `A` aufgerufen wird
+** Beim Aufruf von `self.zeige()` aus der Klasse `AB`: 
+   Wird `zeige()` von `A` oder von `B` aufgerufen? 
+   `zeige()` von `A`, weil `A` in der Ableitungsliste zuerst auftaucht.
+
+
+== Mehrfachvererbung 2
+
+* Will man explizit die Methode einer bestimmten Basisklasse aufrufen, 
+  so kann man diese angeben, s. `+__init__()+`-Methode der Klasse `AB`:
++
+[source,python]
+---- 
+    def __init__(self):
+        A.__init__(self)
+        B.__init__(self)
+----		
+
+== Mehrfachvererbung 3
+		
+* „Diamond-Problem“: Eine Klasse `D` leitet von Klassen `B` und `C` ab, die beide von `A` ableiten.
++
+image::diamant.jpg[align=center]
+
+* Empfehlung:
+** Mehrfachvererbung vermeiden (und insbesondere Konstrukte wie beim Diamond-Problem).
+** Mehr dazu: https://www.python-kurs.eu/python3_mehrfachvererbung.php
+
+
+== Standardklassen als Basisklassen
+
+* Man kann auch von Standardklassen ableiten und diese damit um Funktionalität erweitern.
+* Beispiel <<Kle>>: Klasse `list` um eine Methode `push` erweitern: icon:exclamation-circle[] `plist.py`
+* icon:question-circle[] Übung <<Kle>>: Übung 5: `21_uebung_list_erweitern`:
++
+****
+Klasse Plist um Methode `splice` erweitern:
+	`splice(offset, length, replacement)`
+„offset” entspricht dem ersten Index, ab dem die Elemente gelöscht werden sollen, und der Parameter „length” gibt an, wie viele Elemente gelöscht werden sollen. An die Stelle der gelöschten Elemente sollen die Elemente der Liste replacement eingefügt werden.
+****
+
+
+
+== Referenzen
+
+[bibliography]
+* [[[Ste]]] Ralph Steyer: Programmierung Grundlagen, Herdt-Verlag
+* [[[Kle]]] Bernd Klein: Einführung in Python 3, Hanser-Verlag
+* [[[Kof]]] Kofler: Python – Der Grundkurs, Rheinwerk Computing
+* [[[EK]]] Johannes Ernesti, Peter Kaiser: Python 3 – Das umfassende Handbuch, Rheinwerk Computing
+* [[[Mat]]] Eric Matthes: Python Crashkurs – Eine praktische, projektbasierte Programmiereinführung, dpunkt.verlag
+* [[[Swe]]] Sweigart: Eigene Spiele programmieren: Python lernen
