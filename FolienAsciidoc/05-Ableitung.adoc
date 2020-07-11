@@ -77,7 +77,47 @@ image::ableitung.jpg[align=center]
   (und beispielsweise um eine Methode für Überweisungen erweitert).
 * Eine weitere Klasse könnte ein Sparkonto sein, die ebenfalls von der Konto-Klasse ableitet.
 * Ein Sparkonto hat zusätzlich zu einem Konto einen Zinssatz und eine Methode zur Berechnung der Zinsen.
-* icon:exclamation-circle[] `konto_spar`
+
+
+== Vererbung und Polymorphie
+
+* Vererbung wird oft eingesetzt zur Implementierung von Polymorphie:
+* Bsp: Will man einer Methode, die ein „Konto“ als Parameter erwartet, ein „Girokonto“ als Parameter übergeben, so geht das, wenn „Girokonto“ von „Konto“ abgeleitet ist.
+* Umgekehrt: Will man eine Methode schreiben, die Objekte verschiedenen Typs akzeptiert, so müssen diese Objekte über eine Ableitungshierarchie in Beziehung stehen.
+* Ableitungshierarchien werden oft für die Implementierung von Polymorphie entworfen.
+
+
+== Python und Polymorphie
+
+Erinnerung::
+    Python ist eine dynamische, ungetypte Programmiersprache
+
+Konsequenzen::
+    Zur Implementierung von Polymorphie braucht man keine Ableitung (und auch keine Interfaces).
+    Polymorphie wird durch „Duck Typing“ erreicht („es sieht aus wie eine Ente, es quakt wie eine Ente, also ist es eine Ente“).
+    Um ein Objekt an einer bestimmten Stelle zu verwenden, muss man also nur die erwarteten Methoden implementieren. Der Aufbau einer speziellen Ableitungshierarchie ist nicht nötig.
+
+
+== Python und Vererbung
+
+* Es handelt sich in Python also um eine reine „Implementierungsvererbung“.
+* Trotzdem sollte man sich natürlich auch in Python an die Regeln des sauberen OO-Entwurfs halten, also insbesondere das Liskovsche Substitutions-Prinzip:
+** Ableitung nur dann, wenn eine „ist-ein“-Beziehung gilt, d.h. wenn ein Objekt der Oberklasse stets durch ein Objekt der Unterklasse ersetzt werden kann.
+** (Klassisches) Gegenbeispiel: Rechteck als Ableitung von Quadrat.
+* Im Zweifelsfall Assoziation verwenden: Statt Klasse B von Klasse A abzuleiten (um die Implementierung zu verwenden), kann B auch ein Objekt der Klasse A besitzen. 
+
+
+== Zurück zum Beispiel
+
+* Bisherige Kontoklasse
+** Attribute Kontoinhaber, Kontonummer und Kontostand
+** Methoden für Ein- und Auszahlen
+* Ableitungen: 
+** Girokonto: Zusätzlich: Überweisungsmethode
+** Sparkonto: Zusätzlich
+*** Zinssatz
+*** Methode zur Berechnung der jährlichen Zinsen
+* s. icon:exclamation-circle[] `konto_giro_spar.py`
 
 
 == Technische Grundlagen (nach <<EK>>)
@@ -188,16 +228,6 @@ Erinnerung: Attribute und Methoden
 * Protected: Beginnend mit einem Unterstrich: Zugriff aus Klasse und abgeleiteten Klassen möglich. Nicht von außen.
 
 
-== icon:question-circle[] Übung 20 - Girokonto
-
-* Leiten Sie von der Klasse `Konto` eine weitere Klasse `GiroKonto` ab.
-* Diese erweitert die Klasse `Konto` um eine Methode, um einen Geldbetrag auf ein 
-  anderes `Konto` zu überweisen.
-* Parameter der Funktion:
-** das Zielgirokonto
-** der zu überweisende Betrag
-* siehe Ordner `uebungen/20_uebung_ableitung_girokonto`
-
 == Komplexere Klassenhierarchien
 
 image::ableitungshierarchie.jpg[align=center]
@@ -254,12 +284,13 @@ image::diamant.jpg[align=center]
 
 * Man kann auch von Standardklassen ableiten und diese damit um Funktionalität erweitern.
 * Beispiel <<Kle>>: Klasse `list` um eine Methode `push` erweitern: icon:exclamation-circle[] `plist.py`
-* icon:question-circle[] Übung <<Kle>>: Übung 5: `21_uebung_list_erweitern`:
+* icon:question-circle[] Übung <<Kle>>: 
 +
 ****
 Klasse Plist um Methode `splice` erweitern:
 	`splice(offset, length, replacement)`
-„offset” entspricht dem ersten Index, ab dem die Elemente gelöscht werden sollen, und der Parameter „length” gibt an, wie viele Elemente gelöscht werden sollen. An die Stelle der gelöschten Elemente sollen die Elemente der Liste replacement eingefügt werden.
+„offset” entspricht dem ersten Index, ab dem die Elemente gelöscht werden sollen, und der Parameter „length” gibt an, wie viele Elemente gelöscht werden sollen. 
+An die Stelle der gelöschten Elemente sollen die Elemente der Liste replacement eingefügt werden.
 ****
 
 
