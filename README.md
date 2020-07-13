@@ -2,7 +2,7 @@
 
 Das Repository enthält Unterlagen für einen Pythonkurs für Programmierer<sup>1</sup>. Diese beinhalten:
 
-* Folien (Asciidoc und PDF)
+* Folien (Asciidoc und PDF)<sup>2</sup>
 * Beispiele
 * Übungen (Vorlagen zur Bearbeitung und Lösungsvorschläge)
 
@@ -80,3 +80,5 @@ Wer weitergehende Rechte möchte, wende sich gerne an mich.
 Fragen und Anregungen gerne an pythonkurs@ch-heckler.de.
 
 <sup>1</sup>Im Deutschen sind hier alle Geschlechter eingeschlossen. So ist es natürlich auch in den gesamten Unterlagen zu verstehen.
+
+<sup>2</sup>In dem Ordner Unterlagen liegen PDF-Dateien, in denen die Folien nicht als Folien formatiert sind. Die Dateien sind nicht besonders schön formatiert und eigenen sich nur für einen schnellen Überblick bzw. zum papiersparendem Ausdrucken.
