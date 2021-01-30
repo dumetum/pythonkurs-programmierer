@@ -4,6 +4,7 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
+:tafel:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
@@ -143,6 +144,7 @@ print(a) <2>
 <1> Die lokale Variable `b` hat nun den Wert `2`.
 <2> Die Variable `a` im Hauptprogramm hat nach wie vor den Wert `1`
 
+ifdef::tafel[== Erläuterung]
 
 == Veranschaulichung 
 
@@ -164,6 +166,7 @@ print(t[0]) <2>
 <1> Das `0.` Element der übergebenen Liste wird verändert.
 <2> Damit ist auch die Liste an der Aufrufstelle verändert. Ausgabe ist also `2`.
 
+ifdef::tafel[== Erläuterung]
 
 == Veranschaulichung 
 

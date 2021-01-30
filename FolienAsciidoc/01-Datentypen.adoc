@@ -4,6 +4,7 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
+:tafel:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
@@ -239,6 +240,9 @@ Jetzt gilt:
 
 * `a is not b` (`a` und `b` zeigen auf unterschiedliche Objekte)
 * `a == b`: Der Gleichheitsoperator für die Klasse `int` ist entsprechend implementiert.
+
+
+ifdef::tafel[== Erläuterung]
 
 
 == `type` und `isinstance`
@@ -477,6 +481,7 @@ NOTE: Da es sich um einen veränderlichen Datentyp handelt, sind Seiteneffekte m
 ** somit sind hier keine Seiteneffekte zu befürchten
 ** `l[:]` liefert also eine Kopie der Liste
 
+ifdef::tafel[== Erläuterung]
 
 == Operationen auf Listen
 
