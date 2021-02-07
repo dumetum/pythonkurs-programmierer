@@ -4,7 +4,7 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
-:tafel:
+:tafel!:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
