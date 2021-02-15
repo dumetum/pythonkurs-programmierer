@@ -4,7 +4,8 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
-:tafel!:
+:tafel:
+:beispiele:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
@@ -117,6 +118,14 @@ Hallo
 
 * icon:exclamation-circle[] `zahlenraten.py`
 
+ifdef::beispiele[]
+== Beispiel Zahlenraten
+[source,python]
+----
+include::../Beispiele/Kapitel_1/zahlenraten.py[]
+----
+== &#8239;
+endif::beispiele[]
 
 == Kommentare
 
@@ -295,6 +304,13 @@ d["4711"] = "Wasser"
 ** Vorteil: Operationen sind schneller und verbrauchen im Zweifelsfall weniger Speicher
 * Bsp: `ver_vs_unver.py` icon:exclamation-circle[]
 
+ifdef::beispiele[]
+== Beispiel Veränderlich vs. unveränderlich
+[source,python]
+----
+include::../Beispiele/Kapitel_1/ver_vs_unver.py[]
+----
+endif::beispiele[]
 
 == Zahlen
 
@@ -315,16 +331,23 @@ d["4711"] = "Wasser"
 == Zahlen II
 
 * Gleitkommazahlen (`float` für floating point)
-* begrenzte Genauigkeit und begrenzte Größe (siehe `sys.float_info`) 
-* Literale:
-** `v = 3.14`
-** `v = 3.14e-12`
+** begrenzte Genauigkeit und begrenzte Größe (siehe `sys.float_info`) 
+** Literale:
+*** `v = 3.14`
+*** `v = 3.14e-12`
 ** Spezielle Werte: `inf`, `-inf`, `nan`, siehe `gleitkomma.py` icon:exclamation-circle[]
 * Komplexe Zahlen 
 * Operatoren auf Zahlen: 
 ** `+`, `-`, `*`, `/`, `//`, `%`, `abs()`, `**` 
 ** s. auch https://www.python-kurs.eu/python3_operatoren.php
 
+ifdef::beispiele[]
+== Beispiel Gleitkommazahlen
+[source,python]
+----
+include::../Beispiele/Kapitel_1/gleitkomma.py[]
+----
+endif::beispiele[]
 
 == NoneType
 

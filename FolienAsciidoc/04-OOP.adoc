@@ -4,7 +4,8 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
-:tafel!:
+:tafel:
+:beispiele:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
@@ -229,11 +230,13 @@ Methoden::
 ** Damit alle Objekte einer Klasse dieselben Attribute haben, sollten diese also in einer Methode erzeugt werden.
 
 
-
-
 == Beispielimplementierung
 
-Beispielimplementierung: icon:exclamation-circle[] `konto.py`
+[source,python]
+----
+include::../Beispiele/Kapitel_4/konto.py[]
+----
+== &#8239;
 
 
 == Illustration - Erzeugung eines Objektes 1
@@ -401,6 +404,14 @@ image::klassenattribute.jpg[align=center]
 * Definition wie „normale“ Methode in Klasse aber ohne self-Parameter.
 * Bsp.: icon:exclamation-circle[] `statische_methode.py`
 
+ifdef::beispiele[]
+== Beispiel Statische Methoden
+[source,python]
+----
+include::../Beispiele/Kapitel_4/statische_methode.py[]
+----
+== &#8239;
+endif::beispiele[]
 
 == Wdh.: Idee der OO
 
@@ -427,6 +438,14 @@ image::klassenattribute.jpg[align=center]
 * Beispiel: Kontoklasse: Das Attribut kontostand sollte nicht von außen zugreifbar sein, sondern nur über Methoden verändert werden: 
 icon:exclamation-circle[] `private.py`
 
+ifdef::beispiele[]
+== Beispiel Privates Zugriffsrecht
+[source,python]
+----
+include::../Beispiele/Kapitel_4/private.py[]
+----
+endif::beispiele[]
+
 
 == OO und Wiederverwendung
 
@@ -443,6 +462,21 @@ icon:exclamation-circle[] `private.py`
 * Beispiel: icon:exclamation-circle[] `properties_1.py`, `properties_2.py`
 * getter und setter sind Ballast, wenn eben nichts weiteres getan wird, als auf die Attribute zuzugreifen.
 
+ifdef::beispiele[]
+== Beispiel Getter und Setter ohne Mehrwert
+[source,python]
+----
+include::../Beispiele/Kapitel_4/properties_1.py[]
+----
+endif::beispiele[]
+
+ifdef::beispiele[]
+== Beispiel Setter mit Sinn
+[source,python]
+----
+include::../Beispiele/Kapitel_4/properties_2.py[]
+----
+endif::beispiele[]
 
 == Properties 2
 
@@ -456,6 +490,13 @@ icon:exclamation-circle[] `private.py`
 ** Bsp: Kontostand
 ** Bsp: Kontoinhaber
 
+ifdef::beispiele[]
+== Beispiel
+[source,python]
+----
+include::../Beispiele/Kapitel_4/properties_3.py[]
+----
+endif::beispiele[]
 
 == Die Methoden `+__str__()+` und `+__repr__()+`
 
@@ -468,6 +509,13 @@ Methode `+__str__()+` der Klasse und ruft diese auf (`+k.__str__()+`)
 * `repr`: Stringrepräsentation im Sinne von `eval(repr(k))`
 * icon:exclamation-circle[] `repr.py`
 
+ifdef::beispiele[]
+== Beispiel Die Methoden str und repr
+[source,python]
+----
+include::../Beispiele/Kapitel_4/repr.py[]
+----
+endif::beispiele[]
 
 == Operator Overloading
 
@@ -491,6 +539,13 @@ Methode `+__str__()+` der Klasse und ruft diese auf (`+k.__str__()+`)
 * Addition einer Zahl (`int`): Muss in `add` abgefragt werden.
 * Weiterer Anwendungsfall von `+__radd__()+`
 
+ifdef::beispiele[]
+== Beispiel Operator Overloading
+[source,python]
+----
+include::../Beispiele/Kapitel_4/zeitspanne.py[]
+----
+endif::beispiele[]
 
 == Magische Methoden `hash` und `equals`
 
@@ -501,6 +556,14 @@ Methode `+__str__()+` der Klasse und ruft diese auf (`+k.__str__()+`)
 ** Wenn o1 == o2, dann o1.__hash__() == o2.__hash__()
 ** Das umgekehrte muss nicht unbedingt gelten.
 
+ifdef::beispiele[]
+== Beispiel Die Hash-Methode
+[source,python]
+----
+include::../Beispiele/Kapitel_4/hashable.py[]
+----
+== &#8239;
+endif::beispiele[]
 
 
 == Hash und Equals 2
@@ -517,6 +580,13 @@ class NotHashable:
 ----
 * (siehe icon:exclamation-circle[] `no_hash.py`)
 
+ifdef::beispiele[]
+== Beispiel Non-Hashable
+[source,python]
+----
+include::../Beispiele/Kapitel_4/no_hash.py[]
+----
+endif::beispiele[]
 
 == Iteratoren
 
@@ -529,6 +599,14 @@ implementieren, die einen Iterator zurückgibt.
 *** die das nächste Element zurückgibt
 *** und eine StopIteration-Exception wirft, wenn kein Element mehr verfügbar
 * s.  icon:exclamation-circle[] `iterator.py`
+
+ifdef::beispiele[]
+== Beispiel Iterator
+[source,python]
+----
+include::../Beispiele/Kapitel_4/iterator.py[]
+----
+endif::beispiele[]
 
 == icon:question-circle[] Verkettete Liste
 

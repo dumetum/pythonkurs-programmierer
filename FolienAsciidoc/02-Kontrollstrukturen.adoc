@@ -4,7 +4,8 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
-:tafel!:
+:tafel:
+:beispiele:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
@@ -232,18 +233,40 @@ weitere Anweisungen
 * `continue`: 
 ** Die Ausführung des Schleifenrumpfes wird abgebrochen. 
 ** Es wird mit dem Schleifenkopf (Bedingung) fortgefahren.
-** Beispiel: continue.py icon:exclamation-circle[]
+** Beispiel: `continue.py` icon:exclamation-circle[]
 * Beide Anweisungen wirken auf die aktuelle Schleife. Nicht auf evtl. vorhandene äußere Schleifen.
 
+ifdef::beispiele[]
+== Beispiel Break
+[source,python]
+----
+include::../Beispiele/Kapitel_2/while.py[]
+----
+endif::beispiele[]
+
+ifdef::beispiele[]
+== Beispiel Continue
+[source,python]
+----
+include::../Beispiele/Kapitel_2/continue.py[]
+----
+endif::beispiele[]
 
 == Else-Teil einer While-Schleife
 
 * Python-Spezialität.
 * Der `else`-Teil wird ausgeführt, wenn und sobald die Schleifenbedingung nicht mehr zu trifft.
 * Beim Verlassen der Schleife via `break` wird der `else`-Teil nicht ausgeführt.
-* Beispiel: Zahlenraten icon:exclamation-circle[]
+* Beispiel: `zahlenraten.py` icon:exclamation-circle[]
 * Übung: Wie würde man das implementieren, wenn es kein Else der While-Schleife gäbe? icon:question-circle[]
 
+ifdef::beispiele[]
+== Beispiel
+[source,python]
+----
+include::../Beispiele/Kapitel_2/zahlenraten.py[]
+----
+endif::beispiele[]
 
 == Die For-Schleife
 
@@ -291,6 +314,13 @@ for buchstabe in "Python":
 
 * Weiteres Beispiel: `for.py` icon:exclamation-circle[]
 
+ifdef::beispiele[]
+== Beispiel For-Schleife
+[source,python]
+----
+include::../Beispiele/Kapitel_2/for.py[]
+----
+endif::beispiele[]
 
 == „Klassische“ For-Schleifen
 
@@ -323,6 +353,13 @@ for i in range(1,13):
 * Andernfalls könnte es zu Verwerfungen kommen.
 * Bsp.: schleife_liste_kopie.py icon:exclamation-circle[]
 
+ifdef::beispiele[]
+== Beispiel Schleife über Liste
+[source,python]
+----
+include::../Beispiele/Kapitel_2/schleife_liste_kopie.py[]
+----
+endif::beispiele[]
 
 == Dateien
 
@@ -352,13 +389,35 @@ for i in range(1,13):
 * Den muss man evtl. entfernen (`line.strip()`)
 * Beispiel: icon:exclamation-circle[] `datei2.py` 
 * Die Datei muss am Ende „geschlossen“ werden.
-	
+
+ifdef::beispiele[]
+== Beispiel Lesen aus einer Datei
+[source,python]
+----
+include::../Beispiele/Kapitel_2/datei1.py[]
+----
+endif::beispiele[]	
+
+ifdef::beispiele[]
+== Beispiel Lesen aus einer Datei mit strip
+[source,python]
+----
+include::../Beispiele/Kapitel_2/datei2.py[]
+----
+endif::beispiele[]
 
 == Lesen aus einer Datei 2
 
 * Möglicherweise muss man zu Weiterverarbeitung eine Typkonvertierung durchführen:
 * Beispiel: icon:exclamation-circle[] `datei3.py` 
 
+ifdef::beispiele[]
+== Beispiel Lesen aus einer Datei mit Typkonvertierung
+[source,python]
+----
+include::../Beispiele/Kapitel_2/datei3.py[]
+----
+endif::beispiele[]
 
 == Schreiben in eine Datei
 
@@ -376,6 +435,13 @@ for i in range(1,13):
 * Gegebenenfalls müssen also die zu schreibenden Daten in Strings umgewandelt werden (plus Zeilenumbruch).
 * Beispiel: icon:exclamation-circle[] `datei4.py` 
 
+ifdef::beispiele[]
+== Beispiel Schreiben in eine Datei
+[source,python]
+----
+include::../Beispiele/Kapitel_2/datei4.py[]
+----
+endif::beispiele[]
 
 == Funktionen `read` und `readlines`
 	

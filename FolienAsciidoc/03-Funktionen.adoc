@@ -4,7 +4,8 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
-:tafel!:
+:tafel:
+:beispiele:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
@@ -189,6 +190,14 @@ print(berechne_umfang_flaeche(2,3))
 umfang, flaeche = berechne_umfang_flaeche(4,8)
 print("Umfang:", umfang, ", Flaeche:", flaeche)
 ----
+
+ifdef::beispiele[]
+== Beispiel Funktionsrückgabe
+[source,python]
+----
+include::../Beispiele/Kapitel_3/rueckgabe.py[]
+----
+endif::beispiele[]
 	
 == Lokale Variable
 
@@ -364,6 +373,14 @@ for argument in sys.argv:
 * Wird bei `help(funktion)` ausgegeben.
 * Bsp: `docstring.py` icon:exclamation-circle[]
 
+ifdef::beispiele[]
+== Beispiel Docstring
+[source,python]
+----
+include::../Beispiele/Kapitel_3/docstring.py[]
+----
+endif::beispiele[]
+
 == Funktionsreferenzen	
 
 * Funktionen sind Objekte.
@@ -438,8 +455,15 @@ def vorname(t):
     return t[0]
 namen.sort(key=vorname)
 ----
-* siehe `funktions_ref.py` icon:exclamation-circle[]
-	
+* siehe `funktionsreferenz.py` icon:exclamation-circle[]
+
+ifdef::beispiele[]
+== Beispiel Funktionsreferenzen
+[source,python]
+----
+include::../Beispiele/Kapitel_3/funktionsreferenz.py[]
+----
+endif::beispiele[]	
 	
 == Anonyme Funktionen
 
@@ -460,6 +484,13 @@ namen.sort(key=vorname)
 * Das nennt man Closure.
 * Beispiel: `closure.py` icon:exclamation-circle[]
 
+ifdef::beispiele[]
+== Beispiel Closure
+[source,python]
+----
+include::../Beispiele/Kapitel_3/closure.py[]
+----
+endif::beispiele[]
 
 == Generatoren
 
@@ -471,6 +502,23 @@ namen.sort(key=vorname)
 * Statt mit return wird das Teilergebnis mit yield zurückgegeben.
 * Endgültige Beendigung der Funktion durch return.
 * s. `fib_liste.py` und `fib_gen.py` icon:exclamation-circle[]
+
+ifdef::beispiele[]
+== Beispiel Generatoren 1
+[source,python]
+----
+include::../Beispiele/Kapitel_3/fib_liste.py[]
+----
+endif::beispiele[]
+
+ifdef::beispiele[]
+== Generatoren 2
+[source,python]
+----
+include::../Beispiele/Kapitel_3/fib_gen.py[]
+----
+== &#8239;
+endif::beispiele[]
 
 == Generator-Ausdrücke
 
@@ -541,6 +589,22 @@ reduce(lambda x,y: x+y, liste)
 ** Der Code wird aufgebläht. Die eigentliche Fachlichkeit ist nicht mehr zu erkennen.
 ** Man muss an jeder Stelle im Code überlegen, was im Falle eines unerwarteten Ereignisses zu tun ist.
 
+ifdef::beispiele[]
+== Beispiel Unbehandelter Fehler
+[source,python]
+----
+include::../Beispiele/Kapitel_3/ex1.py[]
+----
+endif::beispiele[]
+
+ifdef::beispiele[]
+== Beispiel Fehlerbehandlung
+[source,python]
+----
+include::../Beispiele/Kapitel_3/ex2.py[]
+----
+== &#8239;
+endif::beispiele[]
 
 == Ausnahmen fangen
 
@@ -551,7 +615,14 @@ reduce(lambda x,y: x+y, liste)
 ** Die Anweisungen zwischen `try` und `except` werden ausgeführt.
 ** Tritt keine Ausnahme auf, wird der `except`-Block übersprungen.
 ** Tritt eine Ausnahme auf, so wird sofort bei deren Auftreten in den `except`-Block gesprungen.
-	
+
+ifdef::beispiele[]
+== Beispiel Ausnahme abfangen
+[source,python]
+----
+include::../Beispiele/Kapitel_3/ex3.py[]
+----
+endif::beispiele[]	
 
 == Ausnahmetypen
 
@@ -564,6 +635,21 @@ reduce(lambda x,y: x+y, liste)
 ** icon:exclamation-circle[] `ex4.py`: Abfangen von zwei Ausnahmen
 ** icon:exclamation-circle[] `ex5.py`: Division durch 0 wird nicht gefangen	
 
+ifdef::beispiele[]
+== Beispiel Abfangen von 2 Ausnahmen
+[source,python]
+----
+include::../Beispiele/Kapitel_3/ex4.py[]
+----
+endif::beispiele[]
+
+ifdef::beispiele[]
+== Beispiel Abfangen spezielle Ausnahmen
+[source,python]
+----
+include::../Beispiele/Kapitel_3/ex5.py[]
+----
+endif::beispiele[]
 
 == Ausnahmen - else
 
@@ -573,6 +659,13 @@ reduce(lambda x,y: x+y, liste)
 * Vorteil gegenüber dem Fall, dass die Anweisungen im `try`-Block stehen: Ausnahmen werden nicht „aus Versehen“ gefangen.
 * Beispiel: icon:exclamation-circle[] `else.py`
 
+ifdef::beispiele[]
+== Beispiel Else bei Ausnahmen
+[source,python]
+----
+include::../Beispiele/Kapitel_3/else.py[]
+----
+endif::beispiele[]
 
 == Ausnahmen - finally
 
@@ -582,6 +675,14 @@ reduce(lambda x,y: x+y, liste)
 * Eignet sich daher gut für Aufräumarbeiten, z.B. das Schließen von Dateien.
 * Ganz am Ende (hinter `else`, wenn vorhanden)
 * Beispiel:  icon:exclamation-circle[] `finally.py`
+
+ifdef::beispiele[]
+== Beispiel Finally
+[source,python]
+----
+include::../Beispiele/Kapitel_3/finally.py[]
+----
+endif::beispiele[]
 
 == Ausnahmen werfen
 
@@ -596,7 +697,14 @@ reduce(lambda x,y: x+y, liste)
 * Beispiel: icon:exclamation-circle[] `ex6.py`
 * Statt eine Ausnahme vom Typ `Exception` zu werfen, kann man auch eigene Ausnahmetypen definieren 
   (was i.a. auch besser ist). Das kommt aber später (neue Klasse im Sinne der Objektorientierten Programmierung)!
-	
+
+ifdef::beispiele[]
+== Beispiel Ausnahmen werfen
+[source,python]
+----
+include::../Beispiele/Kapitel_3/ex6.py[]
+----
+endif::beispiele[]	
 	
 == Ausnahmen werfen - Anmerkungen
 
@@ -619,6 +727,21 @@ reduce(lambda x,y: x+y, liste)
   Funktionen zur String-Verarbeitung, Funktionen für Dateibehandlung).
 * Module stellen also eine weitere Ebene der Strukturierung des Quellcodes dar.	
 
+ifdef::beispiele[]
+== Beispiel Modul
+[source,python]
+----
+include::../Beispiele/Kapitel_3/mod1.py[]
+----
+endif::beispiele[]
+
+ifdef::beispiele[]
+== Beispiel Modulverwendung
+[source,python]
+----
+include::../Beispiele/Kapitel_3/mod2.py[]
+----
+endif::beispiele[]
 
 == Module - Anwendung
 
@@ -679,6 +802,21 @@ f1() # statt mod.f1()
 ----
 * Beispiel: icon:exclamation-circle[] `mod3.py`, `mod4.py`.
 
+ifdef::beispiele[]
+== Beispiel Modul ohne Ausgabe
+[source,python]
+----
+include::../Beispiele/Kapitel_3/mod3.py[]
+----
+endif::beispiele[]
+
+ifdef::beispiele[]
+== Beispiel Verwendung Modul ohne Ausgabe
+[source,python]
+----
+include::../Beispiele/Kapitel_3/mod4.py[]
+----
+endif::beispiele[]
 
 == Pakete
 
@@ -696,16 +834,31 @@ f1() # statt mod.f1()
 * Wie verwendet man Module aus einem Paket?
 ** Import des Moduls über den vollständigen Pfad (vgl. Pfad im Betriebssystem, aber Trennung mit Punkt statt /). 
 	Beispiel: icon:exclamation-circle[] `pak1.py`
-** Import des Moduls, wenn im Paket die Module via der Datei `__init__.py` eingeladen werden:
+** Import des Moduls, wenn im Paket die Module via der Datei `+__init__.py+` eingeladen werden:
 	Beispiel: icon:exclamation-circle[] `pak2.py`
 * Wie ein Verzeichnis Dateien und weitere Verzeichnisse enthalten kann, kann ein Paket Module und auch weitere Pakete enthalten.	
+
+ifdef::beispiele[]
+== Beispiel Import Modul aus Paket (explizit)
+[source,python]
+----
+include::../Beispiele/Kapitel_3/pak1.py[]
+----
+endif::beispiele[]	
 	
-	
+ifdef::beispiele[]
+== Beispiel Import Modul aus Paket über init
+[source,python]
+----
+include::../Beispiele/Kapitel_3/pak2.py[]
+----
+endif::beispiele[]    
+    
 == Pakete - Import
 
 Was passiert beim Import eines Pakets?
 
-* Beim Import eines Pakets wird die Datei `__init__.py` in dem entsprechenden Ordner ausgeführt.
+* Beim Import eines Pakets wird die Datei `+__init__.py+` in dem entsprechenden Ordner ausgeführt.
 * Dort kann man also die Importe der Module durchführen.	
 	
 	

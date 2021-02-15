@@ -4,7 +4,8 @@ Dr. Christian Heckler
 :sectids!:
 :imagesdir: ../Bilder
 :title-separator: ::
-:tafel!:
+:tafel:
+:beispiele:
 include::../Build/attributes-de.adoc[]
 
 == Vorbemerkungen
@@ -119,6 +120,16 @@ Konsequenzen::
 *** Zinssatz
 *** Methode zur Berechnung der jährlichen Zinsen
 * s. icon:exclamation-circle[] `konto_giro_spar.py`
+
+ifdef::beispiele[]
+== Beispiel Ableitungen von Konto-Klasse
+[source,python]
+----
+include::../Beispiele/Kapitel_5/konto_giro_spar.py[]
+----
+== &#8239;
+== &#8239;
+endif::beispiele[]
 
 
 == Technische Grundlagen (nach <<EK>>)
@@ -257,6 +268,14 @@ image::mehrfach.jpg[align=center]
    Wird `zeige()` von `A` oder von `B` aufgerufen? 
    `zeige()` von `A`, weil `A` in der Ableitungsliste zuerst auftaucht.
 
+ifdef::beispiele[]
+== Beispiel Mehrfachableitung
+[source,python]
+----
+include::../Beispiele/Kapitel_5/mehrfach.py[]
+----
+== &#8239;
+endif::beispiele[]
 
 == Mehrfachvererbung 2
 
@@ -294,6 +313,13 @@ Klasse Plist um Methode `splice` erweitern:
 An die Stelle der gelöschten Elemente sollen die Elemente der Liste replacement eingefügt werden.
 ****
 
+ifdef::beispiele[]
+== Beispiel Ableitung von Standardklasse
+[source,python]
+----
+include::../Beispiele/Kapitel_5/plist.py[]
+----
+endif::beispiele[]
 
 
 == Referenzen
