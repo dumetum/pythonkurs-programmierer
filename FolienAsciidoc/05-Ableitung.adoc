@@ -331,3 +331,4 @@ endif::beispiele[]
 * [[[EK]]] Johannes Ernesti, Peter Kaiser: Python 3 – Das umfassende Handbuch, Rheinwerk Computing
 * [[[Mat]]] Eric Matthes: Python Crashkurs – Eine praktische, projektbasierte Programmiereinführung, dpunkt.verlag
 * [[[Swe]]] Sweigart: Eigene Spiele programmieren: Python lernen
+* [[[Ind]]] Michael Inden: Python Challenge - Fit für Prüfung, Job-Interview und Praxis
